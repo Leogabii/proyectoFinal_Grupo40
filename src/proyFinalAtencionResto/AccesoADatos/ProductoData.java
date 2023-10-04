@@ -38,7 +38,46 @@ public class ProductoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a guardar un Producto" + ex.getMessage());
         }
-    
+    }
+      public void eliminarProducto(int id){
+        try {
+            String sql = "UPDATE producto SET estado = 0 WHERE idProducto = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, " Se eliminó el alumno.");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla producto");
+        }
+ }
+  //falta modificacion      
+        public void modificarProducto(Producto producto){
         
+        
+        String sql = "UPDATE producto SET nombre = ? , cantidad = ?, nombre = ?, precio = ? WHERE idProducto = ?";
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, producto.getNombre());
+            ps.setInt(2, producto.getCantidad());
+            ps.setDouble(3, producto.getPrecio());
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El producto no existe");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
+        }
+
+
     }
  }
