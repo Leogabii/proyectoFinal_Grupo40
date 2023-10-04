@@ -12,7 +12,7 @@ public class Reserva extends Persona{
 //    Al extender de Persona, no es posible crear un constructor vacío.
 //    public Reserva() {}
     
-    public Reserva(int idReserva, int dni, String apellido, String nombre, boolean estado) {
+    public Reserva(int idReserva, int dni, String apellido, String nombre, LocalDate fechaRes, boolean estado) {
         super(dni, apellido, nombre);
         this.idReserva = idReserva;
         this.estado = estado;
