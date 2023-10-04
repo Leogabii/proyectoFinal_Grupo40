@@ -54,11 +54,12 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla producto");
         }
  }
+      
   //falta modificacion      
-        public void modificarProducto(Producto producto){
+        public void modificarProductoPorNombre(Producto producto){
+        // este metodo permitira modificar por nombre del producto y modificamos por el nombre como prueba.
         
-        
-        String sql = "UPDATE producto SET nombre = ? , cantidad = ?, nombre = ?, precio = ? WHERE idProducto = ?";
+        String sql = "UPDATE producto SET nombre = ? , cantidad = ?, precio = ? WHERE nombre =?";
         PreparedStatement ps = null;
 
         try {
@@ -77,7 +78,29 @@ public class ProductoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
+    }
+        public void modificarProductoPorId(Producto producto){
+        // este metodo permitira modificar por id de producto.
+        int idProducto = producto.getIdProducto();
+        String sql = "UPDATE producto SET nombre = ? , cantidad = ?,  precio = ? WHERE idProducto =?";
+        PreparedStatement ps = null;
 
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, producto.getNombre());
+            ps.setInt(2, producto.getCantidad());
+            ps.setDouble(3, producto.getPrecio());
+            ps.setInt(4, idProducto);
+            int exito = ps.executeUpdate();
 
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El producto no existe");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
+        }
     }
  }

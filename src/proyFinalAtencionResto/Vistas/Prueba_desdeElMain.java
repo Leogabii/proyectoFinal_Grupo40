@@ -20,7 +20,7 @@ public class Prueba_desdeElMain {
     public Prueba_desdeElMain() {
     }
     
-    public void cargarProducto(){
+    /*public void cargarProducto(){
     
         
     nombre=JOptionPane.showInputDialog(null, "Ingrese al nombre del producto: ");
