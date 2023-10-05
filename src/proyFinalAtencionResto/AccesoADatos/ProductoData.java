@@ -28,7 +28,7 @@ public class ProductoData {
     
     public void guardarProducto(Producto producto){
         int i=0;
-        String sql = "INSERT INTO producto (nombre, cantidad, precio,estado) VALUES (?, ?, ?,?)";
+        String sql = "INSERT INTO producto (nombre, cantidad, precio, estado) VALUES (?, ?, ?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
@@ -88,7 +88,7 @@ public class ProductoData {
         public void modificarProductoPorId(Producto producto){
         // este metodo permitira modificar por id de producto.
        int idProducto = producto.getIdProducto();
-        String sql = "UPDATE producto SET nombre = ? , cantidad = ?,  precio = ? WHERE idProducto =?";
+        String sql = "UPDATE producto SET nombre = ?, cantidad = ?,  precio = ? WHERE idProducto =?";
         PreparedStatement ps = null;
 
         try {
@@ -111,23 +111,23 @@ public class ProductoData {
     }
          public List<Producto> listarProductoPorRangoDePrecio(int min, int max) {
         List<Producto> productos = new ArrayList<>();
-        String sql = "select idProducto, nombre, cantidad, precio from producto from producto where precio between ? and ?";
+        String sql = "select idProducto, nombre, cantidad, precio from producto where precio between ? and ?";
         try{
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, min);
         ps.setInt(2, max);
         ResultSet rs = ps.executeQuery();
-        if(rs.next()) {
-            Producto producto = new Producto();
+        Producto producto = null;
+        while (rs.next()) {
             producto = new Producto();
-            producto.setIdProducto(rs.getInt(1));
-            producto.setNombre(rs.getString(2));
-            producto.setCantidad(rs.getInt(3));
-            producto.setPrecio(rs.getDouble(4));
+            producto.setIdProducto(rs.getInt("idProducto"));
+            producto.setNombre(rs.getString("nombre"));
+            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setPrecio(rs.getDouble("precio"));
             producto.setEstado(true);
+            System.out.println("soy 127"+producto.toString());
             productos.add(producto);
-        } else {
-            JOptionPane.showMessageDialog(null, "El producto no se ha encontrado");
+            productos.forEach(System.out::println);
         }
 ps.close();
         } catch(SQLException ex) {
