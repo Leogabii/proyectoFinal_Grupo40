@@ -50,7 +50,7 @@ public class ProductoData {
             int fila = ps.executeUpdate();
 
             if (fila == 1) {
-                JOptionPane.showMessageDialog(null, " Se eliminó el alumno.");
+                JOptionPane.showMessageDialog(null, "Se elimino el producto");
             }
             ps.close();
         } catch (SQLException e) {
