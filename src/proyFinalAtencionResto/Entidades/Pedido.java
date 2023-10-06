@@ -19,21 +19,21 @@ public class Pedido {
     }
     
 
-    public Pedido(int idPedido, String tipoProducto, Mesa mesa, String nombre_Mesero, LocalDate fecha_hora, Double importe, boolean cobrado) {
+    public Pedido(int idPedido, String tipoProducto, Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
         this.tipoProducto = tipoProducto;
         this.mesa = mesa;
-        this.nombreMesero = nombre_Mesero;
-        this.fechaHora = fecha_hora;
+        this.nombreMesero = nombreMesero;
+        this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
 
-    public Pedido(String tipoProducto, Mesa mesa, String nombre_Mesero, LocalDate fecha_hora, Double importe, boolean cobrado) {
+    public Pedido(String tipoProducto, Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
         this.tipoProducto = tipoProducto;
         this.mesa = mesa;
-        this.nombreMesero = nombre_Mesero;
-        this.fechaHora = fecha_hora;
+        this.nombreMesero = nombreMesero;
+        this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
@@ -62,20 +62,20 @@ public class Pedido {
         this.mesa = mesa;
     }
 
-    public String getNombre_Mesero() {
+    public String getNombreMesero() {
         return nombreMesero;
     }
 
-    public void setNombre_Mesero(String nombre_Mesero) {
-        this.nombreMesero = nombre_Mesero;
+    public void setNombreMesero(String nombreMesero) {
+        this.nombreMesero = nombreMesero;
     }
 
-    public LocalDate getFecha_hora() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFecha_hora(LocalDate fecha_hora) {
-        this.fechaHora = fecha_hora;
+    public void setFecha_hora(LocalDate fechahora) {
+        this.fechaHora = fechaHora;
     }
 
     public Double getImporte() {
@@ -96,7 +96,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", tipoProducto=" + tipoProducto + ", mesa=" + mesa + ", nombre_Mesero=" + nombreMesero + ", fecha_hora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", tipoProducto=" + tipoProducto + ", mesa=" + mesa + ", nombreMesero=" + nombreMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
     
     
