@@ -1,43 +1,93 @@
 
 package proyFinalAtencionResto.Entidades;
 
+import java.time.LocalDate;
+
 
 public class Pedido {
     
     private int idPedido;
-    private boolean estado;
+    private Mesa mesa;
+    private String nombreMesero;
+    private LocalDate fechaHora;
+    private Double importe;
     
-    public Pedido() {}
+    private boolean cobrado;
+
+    public Pedido() {
+    }
     
-    public Pedido(int idPedido, boolean estado) {
+
+    public Pedido(int idPedido, Mesa mesa, String nombre_Mesero, LocalDate fecha_hora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
-        this.estado = estado;
+        this.mesa = mesa;
+        this.nombreMesero = nombre_Mesero;
+        this.fechaHora = fecha_hora;
+        this.importe = importe;
+        this.cobrado = cobrado;
     }
-    
-    public Pedido(boolean estado) {
-        this.estado = estado;
+
+    public Pedido(Mesa mesa, String nombre_Mesero, LocalDate fecha_hora, Double importe, boolean cobrado) {
+        this.mesa = mesa;
+        this.nombreMesero = nombre_Mesero;
+        this.fechaHora = fecha_hora;
+        this.importe = importe;
+        this.cobrado = cobrado;
     }
-    
+
     public int getIdPedido() {
         return idPedido;
     }
-    
+
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
-    
-    public boolean getEstado() {
-        return estado;
+
+    public Mesa getMesa() {
+        return mesa;
     }
-    
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    public String getNombre_Mesero() {
+        return nombreMesero;
+    }
+
+    public void setNombre_Mesero(String nombre_Mesero) {
+        this.nombreMesero = nombre_Mesero;
+    }
+
+    public LocalDate getFecha_hora() {
+        return fechaHora;
+    }
+
+    public void setFecha_hora(LocalDate fecha_hora) {
+        this.fechaHora = fecha_hora;
+    }
+
+    public Double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(Double importe) {
+        this.importe = importe;
+    }
+
+    public boolean isCobrado() {
+        return cobrado;
+    }
+
+    public void setCobrado(boolean cobrado) {
+        this.cobrado = cobrado;
     }
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", estado=" + estado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", nombre_Mesero=" + nombreMesero + ", fecha_hora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
+    
     
     
 }

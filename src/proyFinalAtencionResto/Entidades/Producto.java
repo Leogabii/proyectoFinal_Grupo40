@@ -9,26 +9,25 @@ package proyFinalAtencionResto.Entidades;
 public class Producto {
  
     private int idProducto;
-    private String nombre;
-    private int cantidad;
+    private String tipoProducto;
+    private String nombreProducto;
     private double precio;
     private boolean estado=true;
 
     public Producto() {
     }
 
-    public Producto(String nombre, int cantidad, double precio) {
-        this.nombre = nombre;
-        this.cantidad = cantidad;
+    public Producto(int idProducto, String tipoProducto, String nombreProducto, double precio) {
+        this.idProducto = idProducto;
+        this.tipoProducto = tipoProducto;
+        this.nombreProducto = nombreProducto;
         this.precio = precio;
     }
 
-    public Producto(int idProducto, String nombre, int cantidad, double precio,boolean estado) {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.cantidad = cantidad;
+    public Producto(String tipoProducto, String nombreProducto, double precio) {
+        this.tipoProducto = tipoProducto;
+        this.nombreProducto = nombreProducto;
         this.precio = precio;
-        this.estado = estado;
     }
 
     public int getIdProducto() {
@@ -39,20 +38,20 @@ public class Producto {
         this.idProducto = idProducto;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTipoProducto() {
+        return tipoProducto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
     public double getPrecio() {
@@ -71,12 +70,12 @@ public class Producto {
         this.estado = estado;
     }
 
-    
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", tipoProducto=" + tipoProducto + ", nombreProducto=" + nombreProducto + ", precio=" + precio + ", estado=" + estado + '}';
     }
-    
+
+   
     
     
 }

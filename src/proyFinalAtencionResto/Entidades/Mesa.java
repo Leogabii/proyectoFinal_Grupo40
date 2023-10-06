@@ -5,20 +5,22 @@ package proyFinalAtencionResto.Entidades;
 public class Mesa {
     
     
-    private int idMesa, capacidad;
-    private boolean estado;
+    private int idMesa, numero, capacidad;
+    private boolean estadoMesa;
     
     public Mesa() {}
     
-    public Mesa(int idMesa, int capacidad, boolean estado) {
+    public Mesa(int idMesa,int numero, int capacidad, boolean estado) {
         this.idMesa = idMesa;
+        this.numero = numero;
         this.capacidad = capacidad;
-        this.estado = estado;
+        this.estadoMesa= estado;
     }
     
-    public Mesa(int capacidad, boolean estado) {
+    public Mesa( int numero,int capacidad, boolean estado) {
+        this.numero = numero;
         this.capacidad = capacidad;
-        this.estado = estado;
+        this.estadoMesa = estado;
     }
     
     public int getIdMesa() {
@@ -28,6 +30,14 @@ public class Mesa {
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
     }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
     
     public int getCapacidad() {
         return capacidad;
@@ -36,18 +46,20 @@ public class Mesa {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-    
-    public boolean getEstado() {
-        return estado;
+
+    public boolean isEstadoMesa() {
+        return estadoMesa;
+    }
+
+    public void setEstadoMesa(boolean estadoMesa) {
+        this.estadoMesa = estadoMesa;
     }
     
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
+   
 
     @Override
     public String toString() {
-        return "Mesa{" + "idMesa=" + idMesa + ", capacidad=" + capacidad + ", estado=" + estado + '}';
+        return "Mesa{" + "idMesa=" + idMesa + ",numero=" + numero + ",capacidad=" + capacidad + ", estado=" + estadoMesa + '}';
     }
     
     
