@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Pedido {
     
     private int idPedido;
-    private String tipoProducto;
     private Mesa mesa;
     private String nombreMesero;
     private LocalDate fechaHora;
@@ -19,9 +18,8 @@ public class Pedido {
     }
     
 
-    public Pedido(int idPedido, String tipoProducto, Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+    public Pedido(int idPedido,  Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
-        this.tipoProducto = tipoProducto;
         this.mesa = mesa;
         this.nombreMesero = nombreMesero;
         this.fechaHora = fechaHora;
@@ -29,8 +27,7 @@ public class Pedido {
         this.cobrado = cobrado;
     }
 
-    public Pedido(String tipoProducto, Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
-        this.tipoProducto = tipoProducto;
+    public Pedido(Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
         this.mesa = mesa;
         this.nombreMesero = nombreMesero;
         this.fechaHora = fechaHora;
@@ -44,14 +41,6 @@ public class Pedido {
 
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public String getTipoProducto() {
-        return tipoProducto;
-    }
-
-    public void setTipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
     }
 
     public Mesa getMesa() {
@@ -96,7 +85,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", tipoProducto=" + tipoProducto + ", mesa=" + mesa + ", nombreMesero=" + nombreMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", nombreMesero=" + nombreMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
     
     
