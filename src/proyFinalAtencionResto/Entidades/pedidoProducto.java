@@ -10,23 +10,23 @@ package proyFinalAtencionResto.Entidades;
  */
 public class pedidoProducto {
     private int idPedidoProd;
-    private Pedido pedido;
-    private Producto producto;
+    private int idPedido;
+    private int idProducto;
     private int cantidad;
 
     public pedidoProducto() {
     }
 
-    public pedidoProducto(int idPedidoProd, Pedido pedido, Producto producto, int cantidad) {
+    public pedidoProducto(int idPedidoProd, int pedido, int producto, int cantidad) {
         this.idPedidoProd = idPedidoProd;
-        this.pedido = pedido;
-        this.producto = producto;
+        this.idPedido = pedido;
+        this.idProducto = producto;
         this.cantidad = cantidad;
     }
 
-    public pedidoProducto(Pedido pedido, Producto producto, int cantidad) {
-        this.pedido = pedido;
-        this.producto = producto;
+    public pedidoProducto(int pedido, int producto, int cantidad) {
+        this.idPedido = pedido;
+        this.idProducto = producto;
         this.cantidad = cantidad;
     }
 
@@ -38,20 +38,20 @@ public class pedidoProducto {
         this.idPedidoProd = idPedidoProd;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public int getPedido() {
+        return idPedido;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setPedido(int pedido) {
+        this.idPedido = pedido;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public int getProducto() {
+        return idProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProducto(int producto) {
+        this.idProducto = producto;
     }
 
     public int getCantidad() {
@@ -64,7 +64,7 @@ public class pedidoProducto {
 
     @Override
     public String toString() {
-        return "pedidoProducto{" + "idPedidoProd=" + idPedidoProd + ", pedido=" + pedido + ", producto=" + producto + ", cantidad=" + cantidad + '}';
+        return "pedidoProducto{" + "idPedidoProd=" + idPedidoProd + ", pedido=" + idPedido + ", producto=" + idProducto + ", cantidad=" + cantidad + '}';
     }
     
     
