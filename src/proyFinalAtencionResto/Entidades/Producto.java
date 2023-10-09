@@ -8,26 +8,31 @@ package proyFinalAtencionResto.Entidades;
  */
 public class Producto {
  
-    private int idProducto;
-    private String tipoProducto;
+    private int idProducto; 
     private String nombreProducto;
+    private String tipoProducto;
     private double precio;
+    private int stock;
     private boolean estado=true;
 
     public Producto() {
     }
 
-    public Producto(int idProducto, String tipoProducto, String nombreProducto, double precio) {
-        this.idProducto = idProducto;
-        this.tipoProducto = tipoProducto;
+    public Producto(int idProducto,String nombreProducto, String tipoProducto, double precio, int stock, boolean estado) {
+        this.idProducto = idProducto; 
         this.nombreProducto = nombreProducto;
+        this.tipoProducto = tipoProducto;
         this.precio = precio;
+        this.stock = stock;
+        this.estado = estado;
     }
 
-    public Producto(String tipoProducto, String nombreProducto, double precio) {
+    public Producto( String nombreProducto,String tipoProducto, double precio, int stock, boolean estado) {
         this.tipoProducto = tipoProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
+        this.stock = stock;
+        this.estado = estado;
     }
 
     public int getIdProducto() {
@@ -38,14 +43,6 @@ public class Producto {
         this.idProducto = idProducto;
     }
 
-    public String getTipoProducto() {
-        return tipoProducto;
-    }
-
-    public void setTipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
-    }
-
     public String getNombreProducto() {
         return nombreProducto;
     }
@@ -54,12 +51,28 @@ public class Producto {
         this.nombreProducto = nombreProducto;
     }
 
+    public String getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
+
     public double getPrecio() {
         return precio;
     }
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public boolean isEstado() {
@@ -72,9 +85,12 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", tipoProducto=" + tipoProducto + ", nombreProducto=" + nombreProducto + ", precio=" + precio + ", estado=" + estado + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", tipoProducto=" + tipoProducto + ", precio=" + precio + ", stock=" + stock + ", estado=" + estado + '}';
     }
 
+    
+
+    
    
     
     
