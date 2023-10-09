@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Pedido {
     
     private int idPedido;
-    private Mesa mesa;
+    private int idMesa;
     private String nombreMesero;
     private LocalDate fechaHora;
     private Double importe;
@@ -18,17 +18,17 @@ public class Pedido {
     }
     
 
-    public Pedido(int idPedido,  Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+    public Pedido(int idPedido,  int mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
-        this.mesa = mesa;
+        this.idMesa = mesa;
         this.nombreMesero = nombreMesero;
         this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
 
-    public Pedido(Mesa mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
-        this.mesa = mesa;
+    public Pedido(int mesa, String nombreMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+        this.idMesa = mesa;
         this.nombreMesero = nombreMesero;
         this.fechaHora = fechaHora;
         this.importe = importe;
@@ -43,12 +43,12 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public Mesa getMesa() {
-        return mesa;
+    public int getIdMesa() {
+        return idMesa;
     }
 
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
+    public void setIdMesa(int mesa) {
+        this.idMesa = mesa;
     }
 
     public String getNombreMesero() {
@@ -85,7 +85,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", nombreMesero=" + nombreMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", idMesa=" + idMesa + ", nombreMesero=" + nombreMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
     
     
