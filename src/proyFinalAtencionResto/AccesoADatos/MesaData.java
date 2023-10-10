@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import proyFinalAtencionResto.Entidades.Mesa;
 import proyFinalAtencionResto.Entidades.Pedido;
 
 /**
@@ -43,9 +42,6 @@ public class MesaData {
         return estado;
     }
         
-    public void agregarMesa(Mesa mesa){
-        
-    }
     }    
     //Calcula Subtotal: recibe la cantidad de un producto por su precio unitario, devuelve el 
 //subtotal. Ejemplo dos gaseosas a 100$, subtotal 200$.

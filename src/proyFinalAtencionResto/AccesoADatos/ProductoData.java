@@ -25,23 +25,16 @@ public class ProductoData {
     public ProductoData() {
         con=(Connection) Coneccion.getConexion();
     }
-    /*
-     private int idProducto;
-    private String tipoProducto;
-    private String nombreProducto;
-    private double precio;
-    private boolean estado=true;
-*/
+    
     public void guardarProducto(Producto producto){
         int i=0;
-        String sql = "INSERT INTO producto (nombre_producto, tipo_Producto, precio,stock, estado) VALUES (?, ?, ?,?,?)";
+        String sql = "INSERT INTO producto (nombre, cantidad, precio, estado) VALUES (?, ?, ?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, producto.getNombreProducto());
-            ps.setString(2, producto.getTipoProducto());
+            ps.setString(1, producto.getNombre());
+            ps.setInt(2, producto.getCantidad());
             ps.setDouble(3, producto.getPrecio());
-            ps.setInt(4, producto.getStock());
-            ps.setBoolean(5, producto.isEstado());
+            ps.setBoolean(4, producto.isEstado());
             i=ps.executeUpdate();
             if (i!=0) JOptionPane.showMessageDialog(null, "Producto añadido con exito.");
             ps.close();
@@ -64,25 +57,21 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla producto");
         }
  }
- 
      //Tenemos que hacer una busqueda por nombre para acceder al nombre del producto a modificar
 // ese nombre lo almacenamos en un String      
       // lo pasamos por parametro al metodo modificarProductoPorNombre para usarlo en el where
-   /* String nombreViejo;
-*/
+      String nombreViejo;
         public void modificarProductoPorNombre(Producto producto, String nombreViejo){
         // este metodo permitira modificar por nombre del producto y modificamos por el nombre como prueba.
-         //nombre_producto, tipo_Producto, precio,stock, estado
-        String sql = "UPDATE producto SET nombre_producto = ? , tipo_producto = ?, precio = ?,stock = ? WHERE nombre_producto =?";
+         
+        String sql = "UPDATE producto SET nombre = ? , cantidad = ?, precio = ? WHERE nombre =?";
         PreparedStatement ps = null;
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, producto.getNombreProducto());
-            ps.setString(2, producto.getTipoProducto());
+            ps.setString(1, producto.getNombre());
+            ps.setInt(2, producto.getCantidad());
             ps.setDouble(3, producto.getPrecio());
-            ps.setInt(4, producto.getStock());
-            ps.setString(5,nombreViejo );
             
             int exito = ps.executeUpdate();
 
@@ -96,57 +85,55 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
     }
-//        public void modificarProductoPorId(Producto producto){
-//        // este metodo permitira modificar por id de producto.
-//       int idProducto = producto.getIdProducto();
-//        String sql = "UPDATE producto SET nombre = ?, cantidad = ?,  precio = ? WHERE idProducto =?";
-//        PreparedStatement ps = null;
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, producto.getNombre());
-//            ps.setInt(2, producto.getCantidad());
-//            ps.setDouble(3, producto.getPrecio());
-//            ps.setInt(4, idProducto);
-//            int exito = ps.executeUpdate();
-//
-//            if (exito == 1) {
-//                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El producto no existe");
-//            }
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
-//        }
-//    }
-//         public List<Producto> listarProductoPorRangoDePrecio(int min, int max) {
-//        List<Producto> productos = new ArrayList<>();
-//        String sql = "select idProducto, nombre, cantidad, precio from producto where precio between ? and ?";
-//        try{
-//        PreparedStatement ps = con.prepareStatement(sql);
-//        ps.setInt(1, min);
-//        ps.setInt(2, max);
-//        ResultSet rs = ps.executeQuery();
-//        Producto producto = null;
-//        while (rs.next()) {
-//            producto = new Producto();
-//            producto.setIdProducto(rs.getInt("idProducto"));
-//            producto.setNombre(rs.getString("nombre"));
-//            producto.setCantidad(rs.getInt("cantidad"));
-//            producto.setPrecio(rs.getDouble("precio"));
-//            producto.setEstado(true);
-//            System.out.println("soy 127"+producto.toString());
-//            productos.add(producto);
-//            productos.forEach(System.out::println);
-//        }
-//ps.close();
-//        } catch(SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto");
-//        }
-//        return productos;
-//        
-//    }
- }
+        public void modificarProductoPorId(Producto producto){
+        // este metodo permitira modificar por id de producto.
+       int idProducto = producto.getIdProducto();
+        String sql = "UPDATE producto SET nombre = ?, cantidad = ?,  precio = ? WHERE idProducto =?";
+        PreparedStatement ps = null;
 
-      
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, producto.getNombre());
+            ps.setInt(2, producto.getCantidad());
+            ps.setDouble(3, producto.getPrecio());
+            ps.setInt(4, idProducto);
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El producto no existe");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
+        }
+    }
+         public List<Producto> listarProductoPorRangoDePrecio(int min, int max) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "select idProducto, nombre, cantidad, precio from producto where precio between ? and ?";
+        try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, min);
+        ps.setInt(2, max);
+        ResultSet rs = ps.executeQuery();
+        Producto producto = null;
+        while (rs.next()) {
+            producto = new Producto();
+            producto.setIdProducto(rs.getInt("idProducto"));
+            producto.setNombre(rs.getString("nombre"));
+            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setPrecio(rs.getDouble("precio"));
+            producto.setEstado(true);
+            System.out.println("soy 127"+producto.toString());
+            productos.add(producto);
+            productos.forEach(System.out::println);
+        }
+ps.close();
+        } catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto");
+        }
+        return productos;
+        
+    }
+ }

@@ -8,37 +8,21 @@ package proyFinalAtencionResto.Entidades;
  */
 public class Producto {
  
-<<<<<<< HEAD
     private int idProducto;
-=======
-    private int idProducto; 
->>>>>>> b3a3c8e832d9d934744d5dca742cdebc298fab43
     private String nombreProducto;
-    private String tipoProducto;
     private double precio;
     private int stock;
-<<<<<<< HEAD
     private boolean estado;
-=======
-    private boolean estado=true;
->>>>>>> b3a3c8e832d9d934744d5dca742cdebc298fab43
 
     
     
     public Producto() {
     }
 
-<<<<<<< HEAD
     public Producto(String nombreProducto, double precio, int stock) {
-=======
-    public Producto(int idProducto,String nombreProducto, String tipoProducto, double precio, int stock, boolean estado) {
-        this.idProducto = idProducto; 
->>>>>>> b3a3c8e832d9d934744d5dca742cdebc298fab43
         this.nombreProducto = nombreProducto;
-        this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.stock = stock;
-<<<<<<< HEAD
         this.estado = true;
     }
 
@@ -51,13 +35,6 @@ public class Producto {
 
     public Producto(int idProducto, String nombreProducto, double precio, int stock, boolean estado) {
         this.idProducto = idProducto;
-=======
-        this.estado = estado;
-    }
-
-    public Producto( String nombreProducto,String tipoProducto, double precio, int stock, boolean estado) {
-        this.tipoProducto = tipoProducto;
->>>>>>> b3a3c8e832d9d934744d5dca742cdebc298fab43
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
@@ -78,14 +55,6 @@ public class Producto {
 
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
-    }
-
-    public String getTipoProducto() {
-        return tipoProducto;
-    }
-
-    public void setTipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
     }
 
     public double getPrecio() {
@@ -114,18 +83,10 @@ public class Producto {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         return ""+ idProducto + ", " + nombreProducto ;
     }
 
     
-=======
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", tipoProducto=" + tipoProducto + ", precio=" + precio + ", stock=" + stock + ", estado=" + estado + '}';
-    }
-
-    
-
->>>>>>> b3a3c8e832d9d934744d5dca742cdebc298fab43
     
    
 }
