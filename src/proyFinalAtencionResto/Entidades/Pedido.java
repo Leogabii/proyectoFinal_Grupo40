@@ -7,27 +7,29 @@ import java.time.LocalDate;
 public class Pedido {
     
     private int idPedido;
-    private int mesa;
-    private int legajoMesero;
+    private int idMesa;
+    private int idMesero;
     private LocalDate fechaHora;
     private Double importe;
+    
     private boolean cobrado;
 
     public Pedido() {
     }
+    
 
-    public Pedido(int mesa, int legajoMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
-        this.mesa = mesa;
-        this.legajoMesero = legajoMesero;
+    public Pedido(int idPedido,  int mesa, int idMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+        this.idPedido = idPedido;
+        this.idMesa = mesa;
+        this.idMesero = idMesero;
         this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
 
-    public Pedido(int idPedido, int mesa, int legajoMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
-        this.idPedido = idPedido;
-        this.mesa = mesa;
-        this.legajoMesero = legajoMesero;
+    public Pedido(int mesa, int idMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+        this.idMesa = mesa;
+        this.idMesero = idMesero;
         this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
@@ -41,27 +43,27 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public int getMesa() {
-        return mesa;
+    public int getIdMesa() {
+        return idMesa;
     }
 
-    public void setMesa(int mesa) {
-        this.mesa = mesa;
+    public void setIdMesa(int mesa) {
+        this.idMesa = mesa;
     }
 
-    public int getLegajoMesero() {
-        return legajoMesero;
+    public int getIdMesero() {
+        return idMesero;
     }
 
-    public void setLegajoMesero(int legajoMesero) {
-        this.legajoMesero = legajoMesero;
+    public void setIdMesero(int idMesero) {
+        this.idMesero = idMesero;
     }
 
     public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDate fechaHora) {
+    public void setFecha_hora(LocalDate fechahora) {
         this.fechaHora = fechaHora;
     }
 
@@ -83,15 +85,9 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", legajoMesero=" + legajoMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", idMesa=" + idMesa + ", idMesero=" + idMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
     
     
     
-    
-    
-    
-    
-    
 }
-   
