@@ -8,33 +8,27 @@ package proyFinalAtencionResto.Entidades;
  */
 public class Producto {
  
-    private int idProducto;
+    private int idProducto; 
     private String nombreProducto;
+    private String tipoProducto;
     private double precio;
     private int stock;
-    private boolean estado;
+    private boolean estado=true;
 
-    
-    
     public Producto() {
     }
 
-    public Producto(String nombreProducto, double precio, int stock) {
+    public Producto(int idProducto,String nombreProducto, String tipoProducto, double precio, int stock, boolean estado) {
+        this.idProducto = idProducto; 
         this.nombreProducto = nombreProducto;
+        this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.stock = stock;
-        this.estado = true;
+        this.estado = estado;
     }
 
-    public Producto(int idProducto, int stock) {
-        this.idProducto = idProducto;
-        this.stock = stock;
-    }
-    
-    
-
-    public Producto(int idProducto, String nombreProducto, double precio, int stock, boolean estado) {
-        this.idProducto = idProducto;
+    public Producto( String nombreProducto,String tipoProducto, double precio, int stock, boolean estado) {
+        this.tipoProducto = tipoProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
@@ -55,6 +49,14 @@ public class Producto {
 
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
+    }
+
+    public String getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(String tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     public double getPrecio() {
@@ -83,10 +85,13 @@ public class Producto {
 
     @Override
     public String toString() {
-        return ""+ idProducto + ", " + nombreProducto ;
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", tipoProducto=" + tipoProducto + ", precio=" + precio + ", stock=" + stock + ", estado=" + estado + '}';
     }
 
     
+
     
    
+    
+    
 }
