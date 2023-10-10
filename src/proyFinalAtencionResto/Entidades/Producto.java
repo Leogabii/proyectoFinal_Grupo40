@@ -9,25 +9,36 @@ package proyFinalAtencionResto.Entidades;
 public class Producto {
  
     private int idProducto;
-    private String tipoProducto;
     private String nombreProducto;
     private double precio;
-    private boolean estado=true;
+    private int stock;
+    private boolean estado;
 
+    
+    
     public Producto() {
     }
 
-    public Producto(int idProducto, String tipoProducto, String nombreProducto, double precio) {
-        this.idProducto = idProducto;
-        this.tipoProducto = tipoProducto;
+    public Producto(String nombreProducto, double precio, int stock) {
         this.nombreProducto = nombreProducto;
         this.precio = precio;
+        this.stock = stock;
+        this.estado = true;
     }
 
-    public Producto(String tipoProducto, String nombreProducto, double precio) {
-        this.tipoProducto = tipoProducto;
+    public Producto(int idProducto, int stock) {
+        this.idProducto = idProducto;
+        this.stock = stock;
+    }
+    
+    
+
+    public Producto(int idProducto, String nombreProducto, double precio, int stock, boolean estado) {
+        this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
+        this.stock = stock;
+        this.estado = estado;
     }
 
     public int getIdProducto() {
@@ -36,14 +47,6 @@ public class Producto {
 
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
-    }
-
-    public String getTipoProducto() {
-        return tipoProducto;
-    }
-
-    public void setTipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
     }
 
     public String getNombreProducto() {
@@ -62,6 +65,14 @@ public class Producto {
         this.precio = precio;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public boolean isEstado() {
         return estado;
     }
@@ -72,10 +83,10 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", tipoProducto=" + tipoProducto + ", nombreProducto=" + nombreProducto + ", precio=" + precio + ", estado=" + estado + '}';
+        return ""+ idProducto + ", " + nombreProducto ;
     }
 
+    
+    
    
-    
-    
 }

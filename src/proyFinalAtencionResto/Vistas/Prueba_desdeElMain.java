@@ -12,27 +12,15 @@ import proyFinalAtencionResto.Entidades.Producto;
 
 public class Prueba_desdeElMain {
 
-    private String nombre;
-    private int cantidad;
-    private double precio;
-    private boolean estado=true;
     
-    public Prueba_desdeElMain() {
+    public static void main(String[] args) {
+        
     }
-    
-    /*public void cargarProducto(){
+    Ingreso ingreso = new Ingreso();
     
         
-    nombre=JOptionPane.showInputDialog(null, "Ingrese al nombre del producto: ");
-    cantidad=Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad del producto " + nombre +": "));
-    precio=Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese al precio del producto" + nombre +": "));
-    ProductoData gestionProducto = new ProductoData();
-    Producto producto = new Producto(nombre,cantidad,precio);
-    gestionProducto.guardarProducto(producto);
-    
-    
     
     
 }
     
-}
+

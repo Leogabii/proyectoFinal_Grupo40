@@ -19,7 +19,7 @@ public class Mesa {
     
     public Mesa( int numero,int capacidad, boolean estado) {
         this.numero = numero;
-        this.capacidad = capacidad;
+        this.capacidad = 10;
         this.estadoMesa = estado;
     }
     

@@ -10,21 +10,21 @@ package proyFinalAtencionResto.Entidades;
  */
 public class pedidoProducto {
     private int idPedidoProd;
-    private Pedido pedido;
-    private Producto producto;
+    private int pedido;
+    private int producto;
     private int cantidad;
 
     public pedidoProducto() {
     }
 
-    public pedidoProducto(int idPedidoProd, Pedido pedido, Producto producto, int cantidad) {
-        this.idPedidoProd = idPedidoProd;
+    public pedidoProducto(int pedido, int producto, int cantidad) {
         this.pedido = pedido;
         this.producto = producto;
         this.cantidad = cantidad;
     }
 
-    public pedidoProducto(Pedido pedido, Producto producto, int cantidad) {
+    public pedidoProducto(int idPedidoProd, int pedido, int producto, int cantidad) {
+        this.idPedidoProd = idPedidoProd;
         this.pedido = pedido;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -38,19 +38,19 @@ public class pedidoProducto {
         this.idPedidoProd = idPedidoProd;
     }
 
-    public Pedido getPedido() {
+    public int getPedido() {
         return pedido;
     }
 
-    public void setPedido(Pedido pedido) {
+    public void setPedido(int pedido) {
         this.pedido = pedido;
     }
 
-    public Producto getProducto() {
+    public int getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(int producto) {
         this.producto = producto;
     }
 
@@ -66,6 +66,13 @@ public class pedidoProducto {
     public String toString() {
         return "pedidoProducto{" + "idPedidoProd=" + idPedidoProd + ", pedido=" + pedido + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
+
+  
+
+    
+    
+    
+    
     
     
 }
