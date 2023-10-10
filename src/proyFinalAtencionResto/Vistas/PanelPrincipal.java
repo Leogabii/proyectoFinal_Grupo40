@@ -34,10 +34,12 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmAlta = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmModificar = new javax.swing.JMenuItem();
+        jmBaja = new javax.swing.JMenuItem();
+        jmConsulta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jmCobrarPedido = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jmSalir = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -68,24 +70,41 @@ public class PanelPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jmAlta);
 
-        jMenuItem2.setText("Modificacion");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Baja");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmModificar.setText("Modificacion");
+        jmModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmModificarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmModificar);
 
-        jMenuItem4.setText("Consulta");
-        jMenu1.add(jMenuItem4);
+        jmBaja.setText("Baja");
+        jmBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBajaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmBaja);
+
+        jmConsulta.setText("Consulta");
+        jmConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmConsultaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmConsulta);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Gestion Productos");
         jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Gestion Cobranzas");
+
+        jmCobrarPedido.setText("Cobrar Pedido");
+        jMenu4.add(jmCobrarPedido);
+
+        jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Listados");
         jMenuBar1.add(jMenu3);
@@ -128,9 +147,14 @@ public class PanelPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jmBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBajaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        BajaPedido bajaPedido= new BajaPedido();
+        bajaPedido.setVisible(true);
+        escritorio.add(bajaPedido);
+        escritorio.moveToFront(bajaPedido);
+    }//GEN-LAST:event_jmBajaActionPerformed
 
     private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
         this.dispose();
@@ -148,6 +172,24 @@ public class PanelPrincipal extends javax.swing.JFrame {
         escritorio.add(altaPedido);
         escritorio.moveToFront(altaPedido);
     }//GEN-LAST:event_jmAltaActionPerformed
+
+    private void jmModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModificarActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        ModificarPedido modificarPedido= new ModificarPedido();
+        modificarPedido.setVisible(true);
+        escritorio.add(modificarPedido);
+        escritorio.moveToFront(modificarPedido);
+    }//GEN-LAST:event_jmModificarActionPerformed
+
+    private void jmConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        ConsultaPedido consultaPedido= new ConsultaPedido();
+        consultaPedido.setVisible(true);
+        escritorio.add(consultaPedido);
+        escritorio.moveToFront(consultaPedido);
+    }//GEN-LAST:event_jmConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,12 +231,14 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jmAlta;
+    private javax.swing.JMenuItem jmBaja;
+    private javax.swing.JMenuItem jmCobrarPedido;
+    private javax.swing.JMenuItem jmConsulta;
+    private javax.swing.JMenuItem jmModificar;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package proyFinalAtencionResto.Vistas;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +49,8 @@ public class AltaPedido extends javax.swing.JInternalFrame {
          this.setSize(1150, 650);
          this.setLocation(5,5);
         armarCabecera();
-        jlFecha.setText(fechaDeHoy());
+        jlFecha.setText("Fecha: " + fechaDeHoy());
+        jlHora.setText(horaActual());
         cargarComboBoxMesero();
         deshabilitaBotones();
         
@@ -70,8 +72,8 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         jcbMesa = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jcbLegajo = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         jlFecha = new javax.swing.JLabel();
+        jlHora = new javax.swing.JLabel();
         jbAceptar = new javax.swing.JButton();
         jpanelDeAbajjo = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -120,12 +122,12 @@ public class AltaPedido extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel5.setText("Fecha:");
+        jlFecha.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jlFecha.setText("Fecha:");
 
-        jlFecha.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jlFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlFecha.setText("01/01/1900");
+        jlHora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jlHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlHora.setText("01/01/1900");
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,14 +155,15 @@ public class AltaPedido extends javax.swing.JInternalFrame {
                         .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jcbLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                        .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))
                     .addGroup(jpanelDeArribaLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(45, 45, 45))
+                        .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jlHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
         jpanelDeArribaLayout.setVerticalGroup(
             jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,8 +172,8 @@ public class AltaPedido extends javax.swing.JInternalFrame {
                 .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlHora, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,9 +508,11 @@ public class AltaPedido extends javax.swing.JInternalFrame {
 //            System.out.println("----------------------------------");
             productosPedidos.add(producto);
         }
+        jlHora.setText(horaActual());
         registrarPedido(proximoNroPedido(),nroMesa,nroMozo,fechaDeHoy(),total,productosPedidos);
         resetear();
-        JOptionPane.showMessageDialog(this, "Su pedido ha sido Registrado");
+        JOptionPane.showMessageDialog(this, "Su pedido ha sido Registrado a las:" + horaActual());
+        
 //        for (int i = 0; i < productosPedidos.size(); i++) {
 //            
 //            
@@ -532,7 +537,6 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
@@ -547,6 +551,7 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Producto> jcbProducto;
     private javax.swing.JLabel jlAtendido;
     private javax.swing.JLabel jlFecha;
+    private javax.swing.JLabel jlHora;
     private javax.swing.JLabel jlIVA;
     private javax.swing.JLabel jlSubtotal;
     private javax.swing.JLabel jlTotal;
@@ -616,7 +621,7 @@ private void cargarComboBoxMesero(){
 
         Date fecha = new Date();
 
-        SimpleDateFormat formato =  new SimpleDateFormat("dd-MM-yyyy  hh:MM:ss");
+        SimpleDateFormat formato =  new SimpleDateFormat("dd-MM-yyyy");
      
         
         return (formato.format(fecha).toString());
@@ -747,4 +752,15 @@ private void cargarComboBoxProducto(){
            return 1 + 1;
         }
 
+       
+       private String horaActual(){
+     LocalDateTime locaDate = LocalDateTime.now();
+    int hours  = locaDate.getHour();    
+    int minutes = locaDate.getMinute();
+    int seconds = locaDate.getSecond();
+    return (""+hours+" : "+minutes+" : "+seconds+"");
+//      System.out.println("Hora actual : " + hours  + ":"+ minutes +":"+seconds); 
+       }
+       
+       
 }
