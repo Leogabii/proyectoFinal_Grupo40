@@ -25,7 +25,7 @@ public class Principal_main {
     PanelPrincipal menu = new PanelPrincipal();
     menu.setVisible(true);
     
-        
+       
 
     }
     

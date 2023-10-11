@@ -31,13 +31,17 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmAlta = new javax.swing.JMenuItem();
         jmModificar = new javax.swing.JMenuItem();
         jmBaja = new javax.swing.JMenuItem();
         jmConsulta = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jmGestionProductos = new javax.swing.JMenu();
+        jmGProductosAlta = new javax.swing.JMenuItem();
+        jmGProductosBaja = new javax.swing.JMenuItem();
+        jmGProductosModificacion = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jmCobrarPedido = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -49,15 +53,30 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
         escritorio.setBackground(new java.awt.Color(51, 255, 204));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        escritorio.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jButton1)
+                .addContainerGap(457, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jButton1)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Gestion Pedidos");
@@ -96,8 +115,28 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Gestion Productos");
-        jMenuBar1.add(jMenu2);
+        jmGestionProductos.setText("Gestion Productos");
+        jmGestionProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGestionProductosActionPerformed(evt);
+            }
+        });
+
+        jmGProductosAlta.setText("Alta");
+        jmGProductosAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGProductosAltaActionPerformed(evt);
+            }
+        });
+        jmGestionProductos.add(jmGProductosAlta);
+
+        jmGProductosBaja.setText("Baja");
+        jmGestionProductos.add(jmGProductosBaja);
+
+        jmGProductosModificacion.setText("Modificacion");
+        jmGestionProductos.add(jmGProductosModificacion);
+
+        jMenuBar1.add(jmGestionProductos);
 
         jMenu4.setText("Gestion Cobranzas");
 
@@ -191,6 +230,36 @@ public class PanelPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(consultaPedido);
     }//GEN-LAST:event_jmConsultaActionPerformed
 
+    private void jmGProductosAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGProductosAltaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        AltaProducto altaProducto = new AltaProducto();
+        altaProducto.setVisible(true);
+        escritorio.add(altaProducto);
+        escritorio.moveToFront(altaProducto);
+        
+    }//GEN-LAST:event_jmGProductosAltaActionPerformed
+
+    private void jmGestionProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGestionProductosActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionProductos x = new GestionProductos();
+        x.setVisible(true);
+        escritorio.add(x);
+        escritorio.moveToFront(x);
+    }//GEN-LAST:event_jmGestionProductosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionProductos x = new GestionProductos();
+        x.setVisible(true);
+        escritorio.add(x);
+        escritorio.moveToFront(x);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,8 +297,8 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -238,6 +307,10 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmBaja;
     private javax.swing.JMenuItem jmCobrarPedido;
     private javax.swing.JMenuItem jmConsulta;
+    private javax.swing.JMenuItem jmGProductosAlta;
+    private javax.swing.JMenuItem jmGProductosBaja;
+    private javax.swing.JMenuItem jmGProductosModificacion;
+    private javax.swing.JMenu jmGestionProductos;
     private javax.swing.JMenuItem jmModificar;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
