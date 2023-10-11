@@ -69,14 +69,14 @@ public class PanelPrincipal extends javax.swing.JFrame {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jButton1)
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addContainerGap(1445, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(jButton1)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(546, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Gestion Pedidos");
@@ -179,8 +179,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(escritorio)
-                .addContainerGap())
+                .addComponent(escritorio))
         );
 
         pack();
@@ -255,6 +254,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         GestionProductos x = new GestionProductos();
+        x.setSize(1100,613);
         x.setVisible(true);
         escritorio.add(x);
         escritorio.moveToFront(x);
