@@ -110,8 +110,10 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "" + nombre + ", " + apellido + ", dni=" + dni + " ";
+        return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", domicilio=" + domicilio + ", localidad=" + localidad + ", telefono=" + telefono + ", provincia=" + provincia + '}';
     }
+
+   
     
     
     
