@@ -27,8 +27,7 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
         initComponents();
 //        cargarCombo();
         armarCabecera();
-//        cargarDatos(jcbMesero.getSelectedItem().getIdMesero);
-        cargarDatos(Integer.parseInt(jtfMesero.getText()));
+        cargarDatos();
     }
 
     /**
@@ -163,10 +162,11 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
         jtMesero.setModel(modelo);
     }
     
-    private void cargarDatos(int idMesero) {
+    private void cargarDatos() {
         PedidoData pd = new PedidoData();
         List<Pedido> pedidos = new ArrayList<>();
-        pedidos = pd.listarPedidosPorIdMesero(idMesero);
+        int mesero = Integer.parseInt(jtfMesero.getText());
+        pedidos = pd.listarPedidosPorIdMesero(mesero);
         for (Pedido pedido: pedidos) {
             modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFechaHora(), pedido.getImporte(), pedido.isCobrado()});
         }

@@ -19,8 +19,12 @@ public class Mesa {
     
     public Mesa( int numero,int capacidad, boolean estado) {
         this.numero = numero;
-        this.capacidad = 10;
+        this.capacidad = capacidad;
         this.estadoMesa = estado;
+    }
+    
+    public Mesa(int idMesa) {
+        this.idMesa = idMesa;
     }
     
     public int getIdMesa() {
@@ -59,7 +63,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa{" + "idMesa=" + idMesa + ",numero=" + numero + ",capacidad=" + capacidad + ", estado=" + estadoMesa + '}';
+        return idMesa + "-" + numero + "-" + capacidad + "-" + estadoMesa;
     }
     
     

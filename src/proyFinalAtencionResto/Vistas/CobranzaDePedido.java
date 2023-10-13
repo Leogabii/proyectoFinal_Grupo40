@@ -5,7 +5,9 @@
 package proyFinalAtencionResto.Vistas;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import proyFinalAtencionResto.AccesoADatos.MesaData;
 import proyFinalAtencionResto.AccesoADatos.MeseroData;
@@ -21,6 +23,7 @@ import proyFinalAtencionResto.Entidades.Pedido;
 public class CobranzaDePedido extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo = new DefaultTableModel();
+    
     /**
      * Creates new form CobranzaDePedido
      */
@@ -28,8 +31,7 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
         initComponents();
         cargarCombo();
         armarCabecera();
-//        cargarDatos(jcbMesero.getSelectedItem().getIdMesero);
-        cargarDatos(1);
+//        cargarDatos();
     }
 
     /**
@@ -48,7 +50,11 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPedido = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jtfMesero = new javax.swing.JTextField();
+        jbSalir = new javax.swing.JButton();
+        jbAnular = new javax.swing.JButton();
+        jbCobrar = new javax.swing.JButton();
+        jcbMesero = new javax.swing.JComboBox();
+        jbCargar = new javax.swing.JButton();
 
         setTitle("COBRANZA DE PEDIDOS");
 
@@ -56,8 +62,12 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
 
         jlMesa.setText("Mesa");
 
-        jcbMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbMesa.setToolTipText("");
+        jcbMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMesaActionPerformed(evt);
+            }
+        });
 
         jtPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,6 +84,40 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Elija los pedidos pendientes que desea cobrar");
 
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jbAnular.setText("Anular");
+        jbAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAnularActionPerformed(evt);
+            }
+        });
+
+        jbCobrar.setText("Cobrar");
+        jbCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCobrarActionPerformed(evt);
+            }
+        });
+
+        jcbMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMeseroActionPerformed(evt);
+            }
+        });
+
+        jbCargar.setText("Cargar");
+        jbCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,33 +125,46 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlMesa)
-                                    .addComponent(jlMesero))
-                                .addGap(74, 74, 74)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 7, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jbSalir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbAnular)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbCobrar))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(155, 155, 155)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jlMesa)
+                                .addComponent(jlMesero))
+                            .addGap(53, 53, 53)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jcbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbCargar))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(81, 81, 81)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlMesero)
-                    .addComponent(jtfMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlMesero)
+                            .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jbCargar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlMesa)
                     .addComponent(jcbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,7 +172,12 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSalir)
+                    .addComponent(jbAnular)
+                    .addComponent(jbCobrar))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,27 +194,83 @@ public class CobranzaDePedido extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbAnularActionPerformed
+
+    private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed
+        // TODO add your handling code here:
+//        escritorio.removeAll();
+//        escritorio.repaint();
+        MetodoDePago pago = new MetodoDePago();
+        pago.setVisible(true);
+//        escritorio.add(pago);
+//        escritorio.moveToFront(pago);
+    }//GEN-LAST:event_jbCobrarActionPerformed
+
+    private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
+        // TODO add your handling code here:
+        jcbMesa.removeAllItems();
+        Mesero meseroSeleccionado = new Mesero();
+        meseroSeleccionado = (Mesero)jcbMesero.getSelectedItem();
+        PedidoData pd = new PedidoData();
+        List<Mesa> mesas = new ArrayList<>();
+        mesas = pd.listarMesasPorIdMesero(meseroSeleccionado.getIdMesero());
+        for (Mesa mesa: mesas) {
+            jcbMesa.addItem(mesa);
+        }
+    }//GEN-LAST:event_jcbMeseroActionPerformed
+
+    private void jcbMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesaActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jcbMesaActionPerformed
+
+    private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
+        // TODO add your handling code here:
+        //LIMPIARTABLA
+        
+        PedidoData pd = new PedidoData();
+        List<Pedido> pedidos = new ArrayList<>();
+        Mesero mesero = (Mesero)jcbMesero.getSelectedItem();
+        Mesa mesa = (Mesa) jcbMesa.getSelectedItem();
+        pedidos = pd.listarPedidosPorIdMeseroIdMesa(mesero.getIdMesero(),mesa.getIdMesa());
+        for (Pedido pedido: pedidos) {
+            modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFechaHora(), pedido.getImporte(), pedido.isCobrado()});
+        }
+    }//GEN-LAST:event_jbCargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jcbMesa;
+    private javax.swing.JButton jbAnular;
+    private javax.swing.JButton jbCargar;
+    private javax.swing.JButton jbCobrar;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<Mesa> jcbMesa;
+    private javax.swing.JComboBox jcbMesero;
     private javax.swing.JLabel jlMesa;
     private javax.swing.JLabel jlMesero;
     private javax.swing.JTable jtPedido;
-    private javax.swing.JTextField jtfMesero;
     // End of variables declaration//GEN-END:variables
 
 private void cargarCombo() {
-        jcbMesa.removeAllItems();
-        MesaData ms = new MesaData();
-        List<Mesa> mesas = new ArrayList<>();
-        int idMesero = Integer.parseInt(jtfMesero.getText());
-        mesas = ms.listaDeMesasPorIdMesero(idMesero);
-        for (Mesa mesa: mesas) {
-            jcbMesa.addItem(mesa.toString());
+        MeseroData ms = new MeseroData();
+        List<Mesero> meseros = new ArrayList<>();
+        meseros = ms.listaDeMeseros();
+        for (Mesero mesero: meseros) {
+            jcbMesero.addItem(mesero);
         }
+    
     }
     
     private void armarCabecera() {
@@ -163,13 +281,15 @@ private void cargarCombo() {
         jtPedido.setModel(modelo);
     }
     
-    private void cargarDatos(int idMesero) {
-        PedidoData pd = new PedidoData();
-        List<Pedido> pedidos = new ArrayList<>();
-        pedidos = pd.listarPedidosPorIdMesero(idMesero);
-        for (Pedido pedido: pedidos) {
-            modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFechaHora(), pedido.getImporte(), pedido.isCobrado()});
-        }
-    }
+//    private void cargarDatos() {
+//        PedidoData pd = new PedidoData();
+//        List<Pedido> pedidos = new ArrayList<>();
+//        int mesero = Integer.parseInt(jtfMesero.getText());
+//        Mesa mesa = (Mesa)jcbMesa.getSelectedItem();
+//        pedidos = pd.listarPedidosPorIdMeseroIdMesa(mesero,mesa.getIdMesa());
+//        for (Pedido pedido: pedidos) {
+//            modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFechaHora(), pedido.getImporte(), pedido.isCobrado()});
+//        }
+//    }
 
 }

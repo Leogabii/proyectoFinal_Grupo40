@@ -46,27 +46,7 @@ public class MesaData {
         return estado;
     }
     
-    public List<Mesa> listaDeMesasPorIdMesero(int idMesero) {
-        ArrayList<Mesa> mesas = new ArrayList<>();
-        String sql = "select * from mesa where id_mesero = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMesero);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Mesa mesa  = new Mesa();
-                mesa.setIdMesa(rs.getInt("id_mesa"));
-                mesa.setNumero(rs.getInt("numero"));
-                mesa.setEstadoMesa(rs.getBoolean("estado_mesa"));
-                mesa.setCapacidad(rs.getInt("capacidad"));
-                mesas.add(mesa);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontraron mesas asociadas al mesero indicado.");
-        }
-        return mesas;
-    }
+    
         
     }    
     //Calcula Subtotal: recibe la cantidad de un producto por su precio unitario, devuelve el 

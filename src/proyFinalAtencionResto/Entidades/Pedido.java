@@ -2,6 +2,7 @@
 package proyFinalAtencionResto.Entidades;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class Pedido {
@@ -9,7 +10,7 @@ public class Pedido {
     private int idPedido;
     private int idMesa;
     private int idMesero;
-    private LocalDate fechaHora;
+    private String fechaHora;
     private Double importe;
     
     private boolean cobrado;
@@ -18,7 +19,7 @@ public class Pedido {
     }
     
 
-    public Pedido(int idPedido,  int mesa, int idMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+    public Pedido(int idPedido,  int mesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
         this.idMesa = mesa;
         this.idMesero = idMesero;
@@ -27,7 +28,7 @@ public class Pedido {
         this.cobrado = cobrado;
     }
 
-    public Pedido(int mesa, int idMesero, LocalDate fechaHora, Double importe, boolean cobrado) {
+    public Pedido(int mesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
         this.idMesa = mesa;
         this.idMesero = idMesero;
         this.fechaHora = fechaHora;
@@ -59,11 +60,11 @@ public class Pedido {
         this.idMesero = idMesero;
     }
 
-    public LocalDate getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 
-    public void setFecha_hora(LocalDate fechahora) {
+    public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 
