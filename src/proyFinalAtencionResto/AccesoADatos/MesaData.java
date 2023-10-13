@@ -8,7 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import proyFinalAtencionResto.Entidades.Mesa;
 import proyFinalAtencionResto.Entidades.Pedido;
 
 /**
@@ -40,6 +44,28 @@ public class MesaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesa " + ex.getMessage());
         }
         return estado;
+    }
+    
+    public List<Mesa> listaDeMesasPorIdMesero(int idMesero) {
+        ArrayList<Mesa> mesas = new ArrayList<>();
+        String sql = "select * from mesa where id_mesero = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesero);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Mesa mesa  = new Mesa();
+                mesa.setIdMesa(rs.getInt("id_mesa"));
+                mesa.setNumero(rs.getInt("numero"));
+                mesa.setEstadoMesa(rs.getBoolean("estado_mesa"));
+                mesa.setCapacidad(rs.getInt("capacidad"));
+                mesas.add(mesa);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontraron mesas asociadas al mesero indicado.");
+        }
+        return mesas;
     }
         
     }    

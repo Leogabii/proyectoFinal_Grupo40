@@ -142,6 +142,11 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Gestion Cobranzas");
 
         jmCobrarPedido.setText("Cobrar Pedido");
+        jmCobrarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCobrarPedidoActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmCobrarPedido);
 
         jMenuBar1.add(jMenu4);
@@ -280,6 +285,17 @@ public class PanelPrincipal extends javax.swing.JFrame {
         escritorio.add(x);
         escritorio.moveToFront(x);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmCobrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCobrarPedidoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        CobranzaDePedido x = new CobranzaDePedido();
+        x.setSize(1100,613);
+        x.setVisible(true);
+        escritorio.add(x);
+        escritorio.moveToFront(x);
+    }//GEN-LAST:event_jmCobrarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
