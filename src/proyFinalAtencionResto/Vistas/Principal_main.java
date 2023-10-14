@@ -89,15 +89,12 @@ public class Principal_main {
 //        System.out.println(pedidos);
 //    }
 
-    PedidoData pd = new PedidoData();
-    List<Mesa> lista = new ArrayList<>();
-    lista = pd.listarMesasPorIdMesero(2);
-//    if (lista.isEmpty()){
-//        System.out.println("La lista está vacía");
-//    } 
-    for(Mesa mesa: lista) {
-        System.out.println(mesa.getIdMesa());
-    }
+//    PedidoData pd = new PedidoData();
+//    List<Mesa> lista = new ArrayList<>();
+//    lista = pd.listarMesasPorIdMesero(2);
+//    for(Mesa mesa: lista) {
+//        System.out.println(mesa.getIdMesa());
+//    }
 
     }
     
