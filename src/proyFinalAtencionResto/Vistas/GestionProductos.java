@@ -296,7 +296,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
 
         jcbTipoProducto.setBackground(new java.awt.Color(0, 0, 0));
         jcbTipoProducto.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jcbTipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comida", "Bebida", "Todo" }));
+        jcbTipoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todo", "Comida", "Bebida" }));
         jcbTipoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTipoProductoActionPerformed(evt);
@@ -432,9 +432,12 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         try {
             for (Producto prod : pd.listadoDeProductos()) {
                 
-                if (prod.getTipoProducto()== jcbTipoProducto.getSelectedItem()) {
+                if (prod.getTipoProducto().equalsIgnoreCase((String) jcbTipoProducto.getSelectedItem())) {
                     modelo.addRow(new Object[]{prod.getIdProducto(), prod.getNombreProducto(), prod.getTipoProducto(), prod.getPrecio(), prod.getStock(), prod.isEstado()});
+                } else if (jcbTipoProducto.getSelectedItem().equals("Todo")){
+                cargarTablaTodo();
                 }
+                
                     
                 
             }
