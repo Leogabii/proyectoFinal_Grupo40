@@ -78,7 +78,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(jButton1)
-                .addContainerGap(546, Short.MAX_VALUE))
+                .addContainerGap(641, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Gestion Pedidos");
@@ -275,13 +275,13 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-//        escritorio.removeAll();
-//        escritorio.repaint();
-//        GestionProductos x = new GestionProductos();
-//        x.setSize(1100,613);
-//        x.setVisible(true);
-//        escritorio.add(x);
-//        escritorio.moveToFront(x);
+       escritorio.removeAll();
+       escritorio.repaint();
+      GestionProductos x = new GestionProductos();
+       x.setSize(1100,613);
+       x.setVisible(true);
+       escritorio.add(x);
+        escritorio.moveToFront(x);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

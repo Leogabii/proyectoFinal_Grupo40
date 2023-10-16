@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import java.util.TreeSet;
 
 import proyFinalAtencionResto.Entidades.Producto;
 
@@ -90,6 +91,8 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
     }
+        
+        
 //        public void modificarProductoPorId(Producto producto){
 //        // este metodo permitira modificar por id de producto.
 //       int idProducto = producto.getIdProducto();
@@ -144,7 +147,7 @@ public class ProductoData {
         
         
        public  List<Producto> listadoDeProductos() throws SQLException{
-       List<Producto> productos = new ArrayList<>();
+        List<Producto> listaProductos= new ArrayList<>();
        try{
           
            String sql ="select * from producto";
@@ -155,17 +158,17 @@ public class ProductoData {
                producto = new Producto();
                producto.setIdProducto(resultado.getInt("idProducto"));
                producto.setNombreProducto(resultado.getString("nombre_producto"));
+               producto.setTipoProducto(resultado.getString("tipo_producto"));
                producto.setPrecio(resultado.getDouble("precio"));
-//               producto.setTipoProducto(resultado.getString("tipo_producto"));
                producto.setStock(resultado.getInt("stock"));
                producto.setEstado(resultado.getBoolean("estado"));
-               productos.add(producto);
+               listaProductos.add(producto);
            }
        }catch(SQLException sqle){
            JOptionPane.showMessageDialog(null, sqle);
            
        }
-       return productos;
+       return listaProductos;
          }
  }
 

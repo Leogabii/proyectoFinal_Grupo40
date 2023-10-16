@@ -13,7 +13,7 @@ public class Producto {
     private String tipoProducto;
     private double precio;
     private int stock;
-    private boolean estado=true;
+    private boolean estado;
 
     public Producto() {
     }
@@ -82,6 +82,8 @@ public class Producto {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+ 
 
     @Override
     public String toString() {
