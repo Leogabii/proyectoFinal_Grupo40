@@ -167,6 +167,28 @@ public class ProductoData {
        }
        return productos;
          }
- }
+       
+        public Producto traemeDatoDeEsteProducto(int codigo){
+            Producto producto = new Producto();
+        try {
+            String sql = "SELECT * FROM producto WHERE idProducto=?";
+
+            PreparedStatement sentencia = con.prepareStatement(sql);
+            sentencia.setInt(1, codigo);
+            ResultSet resultado = sentencia.executeQuery();
+            
+            while (resultado.next()) {
+                producto.setNombreProducto(resultado.getString("nombre_producto"));
+                producto.setPrecio(resultado.getDouble("precio"));
+                
+            }
+        } catch (SQLException sqe) {
+            JOptionPane.showMessageDialog(null, sqe);
+        }
+        return producto;
+        }
+       
+       
+  }  // ******************* end class ************************
 
       

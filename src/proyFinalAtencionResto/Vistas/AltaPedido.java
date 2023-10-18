@@ -5,16 +5,28 @@
  */
 package proyFinalAtencionResto.Vistas;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import proyFinalAtencionResto.AccesoADatos.MesaData;
+import proyFinalAtencionResto.AccesoADatos.MeseroData;
+import proyFinalAtencionResto.AccesoADatos.PedidoData;
+import proyFinalAtencionResto.AccesoADatos.PedidoProductoData;
+import proyFinalAtencionResto.AccesoADatos.ProductoData;
+import proyFinalAtencionResto.Entidades.Mesa;
 import proyFinalAtencionResto.Entidades.Mesero;
+import proyFinalAtencionResto.Entidades.Pedido;
 import proyFinalAtencionResto.Entidades.Producto;
 
 /**
@@ -41,6 +53,17 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     private final double IVA = 0.21; 
     private double subtotal=0;
     private double total=0;
+    private static PedidoData pedidoData =  new PedidoData();
+    private static MeseroData meseroData = new MeseroData();
+    private static MesaData mesaData = new MesaData();
+    private static ProductoData productoData = new ProductoData();
+    private static PedidoProductoData pedidoProdData = new PedidoProductoData();
+    private LocalDateTime locaDate;
+    private String fecha1;
+    private String fecha2;
+    private LocalDateTime hora;
+    
+    
     /**
      * Creates new form AltaPedido
      */
@@ -48,11 +71,14 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         initComponents();
          this.setSize(1150, 650);
          this.setLocation(5,5);
+//          ArrancamosAFacturar();
         armarCabecera();
-        jlFecha.setText("Fecha: " + fechaDeHoy());
-        jlHora.setText(horaActual());
+        cargarfecha();
         cargarComboBoxMesero();
+        cargarComboBoxMesa();
         deshabilitaBotones();
+                   cargarComboBoxProducto();
+        jlNroPedidoPmo.setText(proximoNrodePedido()+"");
         
     }
 
@@ -67,13 +93,12 @@ public class AltaPedido extends javax.swing.JInternalFrame {
 
         jpanelDeArriba = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlNroPedidoPmo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jcbMesa = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jcbLegajo = new javax.swing.JComboBox<>();
         jlFecha = new javax.swing.JLabel();
-        jlHora = new javax.swing.JLabel();
         jbAceptar = new javax.swing.JButton();
         jpanelDeAbajjo = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -104,14 +129,17 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel1.setText("Nro. de pedido");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setText("001");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jlNroPedidoPmo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlNroPedidoPmo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabel3.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel3.setText("Ingrese Nro. de mesa");
 
-        jcbMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        jcbMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMesaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel4.setText("Ingrese Legajo de Mesero");
@@ -124,10 +152,6 @@ public class AltaPedido extends javax.swing.JInternalFrame {
 
         jlFecha.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jlFecha.setText("Fecha:");
-
-        jlHora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jlHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlHora.setText("01/01/1900");
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -142,28 +166,24 @@ public class AltaPedido extends javax.swing.JInternalFrame {
             jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelDeArribaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpanelDeArribaLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpanelDeArribaLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
                         .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcbLegajo, 0, 109, Short.MAX_VALUE)
+                            .addComponent(jcbMesa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
                         .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))
                     .addGroup(jpanelDeArribaLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jlNroPedidoPmo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(jlHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jpanelDeArribaLayout.setVerticalGroup(
             jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +191,8 @@ public class AltaPedido extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlHora, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlNroPedidoPmo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,10 +367,9 @@ public class AltaPedido extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpanelDeArriba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpanelDeAbajjo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpanelDeAbajjo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jpanelDeArriba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,20 +386,19 @@ public class AltaPedido extends javax.swing.JInternalFrame {
 
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
     try{
-        nroMesa=mesaElegida();
+        nroMesa= mesaElegida();
         nroMozo=legajoMeseroElegido();
         
         // en este if consulta a la BD el estado de la mesa y devuelve su estado
         // simulo que trae el estado en true ocupada
-        boolean estado = estadoDeLaMesa(nroMesa);
-        if (estado==false){
+        
+        if (!estadoDeLaMesa(nroMesa)){
             //este metodo me pasa el estado de la mesa a ocupada (true)
             modificoEstadoActual(nroMesa,true);
             habilitaBotones();
-            cargarComboBoxProducto();
         }else if(consultaMozodeLaMeza(nroMesa,nroMozo)){
             habilitaBotones();
-            cargarComboBoxProducto();
+
         }else{
             JOptionPane.showMessageDialog(this,"El mesero no esta atendiendo a esa mesa, favor de corregir al mesero elegido");
             
@@ -402,9 +419,12 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbAceptarActionPerformed
 
     private void jcbLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbLegajoActionPerformed
-        Integer idMesero =  (Integer) jcbLegajo.getSelectedItem();
+        
+        Mesero auxiliar = null;
+        auxiliar =  (Mesero) jcbLegajo.getSelectedItem();
+        nroMozo= auxiliar.getIdMesero();
         // aca trae de la base de datos los atributos del mesero segun el idmesero
-        //jlAtendido.setText("Atendido por:  " + mesero.getNombre() + ", " + mesero.getApellido());
+        jlAtendido.setText("Atendido por:  " + auxiliar.getNombre() + "  " + auxiliar.getApellido() + "  ");
         
     }//GEN-LAST:event_jcbLegajoActionPerformed
 
@@ -498,20 +518,47 @@ public class AltaPedido extends javax.swing.JInternalFrame {
 
     private void jbGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGrabarActionPerformed
         //recorre la tabla y lo guarda en un arrayList y lo pasa a pedidoProductoData para actualizar la bd
-        Producto producto=null;
-        for (int i=0; i<jtItems.getRowCount();i++){
-            producto = new Producto();
-            producto.setIdProducto((Integer) (jtItems.getValueAt(i, 1)));
-            producto.setStock((Integer) (jtItems.getValueAt(i, 0)));
-//            System.out.println((Integer) (jtItems.getValueAt(i, 1)));
-//            System.out.println((Integer) (jtItems.getValueAt(i, 0)));
-//            System.out.println("----------------------------------");
-            productosPedidos.add(producto);
+            HashMap<Integer,Integer> mapa=new HashMap();
+       
+        
+            Pedido pedido= pedido = new Pedido();  ;
+            pedido.setIdPedido(proximoNrodePedido());
+            pedido.setIdMesa(nroMesa);
+            pedido.setIdMesero(nroMozo);
+            pedido.setFecha_hora(locaDate);
+            pedido.setImporte(total);
+            pedido.setCobrado(false);
+        try {
+            pedidoData.registrarPedido(pedido);
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jlHora.setText(horaActual());
-        registrarPedido(proximoNroPedido(),nroMesa,nroMozo,fechaDeHoy(),total,productosPedidos);
+            
+            for (int i=0; i<jtItems.getRowCount();i++){
+                 
+                Integer codigoProducto = (Integer) jtItems.getValueAt(i, 1);
+                Integer valorCantidad = (Integer) jtItems.getValueAt(i, 0);
+                 mapa.put(codigoProducto, valorCantidad);
+        } // termina de recorrer la tabla
+        try {
+            pedidoProdData.registrarPedido(pedido.getIdPedido(), mapa);
+            
+            //***************+ aca va para registrar producto **************************
+            //**********+ inserto el pedido **************
+            //INSERT INTO `pedido`(`id_pedido`, `id_mesa`, `id_mesero`, `fecha_hora`, `importe`, `cobrada`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]')
+            //*********** inserto productos pedidos a la tabla pedidoproducto
+            //INSERT INTO `pedidoproducto`(`id_pedido_producto`, `id_pedido`, `id_producto`, `cantidad`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        //jlHora.setText(horaActual());
+        //registrarPedido(proximoNroPedido(),nroMesa,nroMozo,fechaDeHoy(),total,productosPedidos);
         resetear();
-        JOptionPane.showMessageDialog(this, "Su pedido ha sido Registrado a las:" + horaActual());
+        //JOptionPane.showMessageDialog(this, "Su pedido ha sido Registrado a las:" + horaActual());
         
 //        for (int i = 0; i < productosPedidos.size(); i++) {
 //            
@@ -531,10 +578,13 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jcbMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbMesaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -546,13 +596,13 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAnularItem;
     private javax.swing.JButton jbGrabar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<Integer> jcbLegajo;
-    private javax.swing.JComboBox<String> jcbMesa;
+    private javax.swing.JComboBox<Mesero> jcbLegajo;
+    private javax.swing.JComboBox<Mesa> jcbMesa;
     private javax.swing.JComboBox<Producto> jcbProducto;
     private javax.swing.JLabel jlAtendido;
     private javax.swing.JLabel jlFecha;
-    private javax.swing.JLabel jlHora;
     private javax.swing.JLabel jlIVA;
+    private javax.swing.JLabel jlNroPedidoPmo;
     private javax.swing.JLabel jlSubtotal;
     private javax.swing.JLabel jlTotal;
     private javax.swing.JPanel jpanelDeAbajjo;
@@ -561,34 +611,43 @@ public class AltaPedido extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtItems;
     // End of variables declaration//GEN-END:variables
 
-private void cargarComboBoxMesero(){
-  mesero=new Mesero();
-  mesero.setIdMesero(1);
-  mesero.setNombre("Donald");
-  mesero.setApellido("Trump");
-  mesero.setDni(17656789);
-  mesero.setDomicilio("Lacarra 2345");
-  mesero.setLocalidad("Avellaneda");
-  mesero.setTelefono("011 4566 - 7889");
-  mesero.setProvincia("Buenos Aires");
-  Mesero mesero1=new Mesero();
-  mesero1.setIdMesero(2);
-  mesero1.setNombre("Marcelo");
-  mesero1.setApellido("Tinelli");
-  mesero1.setDni(17656789);
-  mesero1.setDomicilio("Lacarra 2345");
-  mesero1.setLocalidad("Avellaneda");
-  mesero1.setTelefono("011 4566 - 7889");
-  mesero1.setProvincia("Buenos Aires");
-  jcbLegajo.addItem(mesero.getIdMesero());
-  jcbLegajo.addItem(mesero1.getIdMesero());
+private void cargarComboBoxMesero() { // carga combobox mesero con el nro de id del mesero (legajo)
+     
+    try{
+        List<Mesero> meseros = meseroData.listadoDeMeseros();
+     for (Mesero mesero : meseros){
+        jcbLegajo.addItem(mesero);
+     }
+    }catch(SQLException sqle){
+           JOptionPane.showMessageDialog(this, sqle);
+                   
+             }
+     }
+    
+
+
+private void cargarComboBoxMesa() { // carga combobox mesa con el nro de id de la mesa (legajo)
+     
+    try{
+        List<Mesa> mesas = mesaData.listadoDeMesas();
+     for (Mesa mesa : mesas){
+        jcbMesa.addItem(mesa);
+     }
+    }catch(SQLException sqle){
+           JOptionPane.showMessageDialog(this, sqle);
+                   
+             }
+     }
+    
+    
+
  
   
 //    List<Alumno> alumnos = aluData.listarAlumnos();
 //     for (Alumno alu : alumnos){
 //        jcbAlumno.addItem(alu);
 //     }
-}
+
 
 
  private void armarCabecera(){
@@ -617,15 +676,15 @@ private void cargarComboBoxMesero(){
         
     }
 
- private String fechaDeHoy(){
+ private void fechaDeHoy(){
 
         Date fecha = new Date();
+    SimpleDateFormat formato =  new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    SimpleDateFormat formato1 =  new SimpleDateFormat("yyyy-MM-dd");
+    fecha1 = formato.format(fecha).toString();
+    fecha2 = formato1.format(fecha).toString();
 
-        SimpleDateFormat formato =  new SimpleDateFormat("dd-MM-yyyy");
-     
-        
-        return (formato.format(fecha).toString());
-                
+         jlFecha.setText("Fecha: " + fecha1);       
            
     }
 
@@ -643,7 +702,6 @@ private void cargarComboBoxMesero(){
  }
  private void habilitaBotones(){
      
-     jlAtendido.setText("Atendido por:  " + mesero.getNombre() + ", " + mesero.getApellido());
      jbAnular.setEnabled(true);
      jtCantidad.setText("");
      jtCantidad.setEnabled(true);
@@ -659,59 +717,84 @@ private void cargarComboBoxMesero(){
  
 
 private int mesaElegida(){
-    Integer eligio = Integer.parseInt(jcbMesa.getSelectedItem().toString());
+       
+    Mesa mesaeligio = (Mesa) jcbMesa.getSelectedItem();
+    int eligio = mesaeligio.getIdMesa();
+    
+    
     return eligio;
 }
         
 private int legajoMeseroElegido(){
-    Integer eligio = (Integer) jcbLegajo.getSelectedItem();
+    Mesero meseroeligio = (Mesero) jcbLegajo.getSelectedItem();
+    int eligio = meseroeligio.getIdMesero();
     return eligio;
 }
 
 
 private boolean estadoDeLaMesa(int nroMesa){
-    boolean estado=true;
+    boolean estado=mesaData.estadoMesa(nroMesa);
     return estado;
     
 }
 
 
+public int ArrancamosAFacturar(){
+    int opcion = JOptionPane.showConfirmDialog(this, "Ingresa un nuevo pedido?");
+   return opcion;
+        
+}
+
+
+
+
 private void  modificoEstadoActual(int nroMesa,boolean estado){
-    
+    mesaData.actualizarEstadoMesa(nroMesa, estado);
     
 }
 
-private boolean consultaMozodeLaMeza(int nroMesa, int nroMozo){
-    if ((nroMesa==3)&(nroMozo==2)){
-    return true;
-}else{
-    return false;  
-        }
+private boolean consultaMozodeLaMeza(int nroMesa, int nroMozo) throws SQLException{
+    // aca controla que el mesero este atendiendo a esa mesa al dar de alta el pedido por primera vez
+//    List<Integer> nroMeseros = new ArrayList();
+//           String ddMMayyyy= fecha2;
+//           String hora=horaActual();
+//           String fechaDelDia=ddMMayyyy+hora;
+//    JOptionPane.showMessageDialog(this, "consulta el dia: " + fecha2);
+//    JOptionPane.showMessageDialog(this, "consulta la hora: " + hora);
+           //2023-10-10 18:20:19
+
+           
+           return pedidoData.meseroQAtiendeUnaMesaDada(nroMesa, nroMozo);
+           
+           
+           
+//   nroMeseros=pedidoData.meseroQAtiendelaMesa(nroMesa);
+//   
+//    for (Integer nroMesero : nroMeseros) {
+//        if(nroMozo==nroMesero){
+//           return true;
+//           }
+//    }
+//    return false;  
 }
 
 
 private void cargarComboBoxProducto(){
-  producto=new Producto();
-  producto.setIdProducto(1);
-  producto.setNombreProducto("Hamburguesa");
-  producto.setStock(100);
-  producto.setPrecio(699.99);
+
+    try{
+        List<Producto> productos = productoData.listadoDeProductos();
+     for (Producto producto : productos){
+        jcbProducto.addItem(producto);
+     }
+    }catch(SQLException sqle){
+           JOptionPane.showMessageDialog(this, sqle);
+                   
+             }
+     }
   
-  Producto producto1=new Producto();
-  producto1.setIdProducto(2);
-  producto1.setNombreProducto("Pizza");
-  producto1.setStock(100);
-  producto1.setPrecio(1699.99);
-  
-  jcbProducto.addItem(producto);
-  jcbProducto.addItem(producto1);
  
   
-//    List<Alumno> alumnos = aluData.listarAlumnos();
-//     for (Alumno alu : alumnos){
-//        jcbAlumno.addItem(alu);
-//     }
-}
+
 
 
  private void registrarPedido(int NroPedido, int nroMesa, int nroMozo,String fechaDeHoy,double total,ArrayList<Producto> productosPedidos){
@@ -732,6 +815,8 @@ private void cargarComboBoxProducto(){
      //borra todo para empezar otra vez a cargar pedido
      borrarFilas();
      deshabilitaBotones();
+     cargarfecha();
+     jlNroPedidoPmo.setText(proximoNrodePedido()+"");
      jcbProducto.setEnabled(false);
      jtCantidad.setText("");
      jbAgregar.setEnabled(false);
@@ -740,27 +825,86 @@ private void cargarComboBoxProducto(){
      jcbLegajo.setEnabled(true);
      subtotal=0;
      total=0;
-           jlSubtotal.setText("   Subtotal: $ ");
-       jlIVA.setText("     IVA 21%  " );
-       jlTotal.setText("TOTAL  A ABONAR $ ");
-       jcbLegajo.setSelectedIndex(0);
-       jcbMesa.setSelectedIndex(0);
+     jlSubtotal.setText("   Subtotal: $ ");
+     jlIVA.setText("     IVA 21%  " );
+     jlTotal.setText("TOTAL  A ABONAR $ ");
+     jcbLegajo.setSelectedIndex(0);
+     jcbMesa.setSelectedIndex(0);
+//     ArrancamosAFacturar();
  }
         
-       private int proximoNroPedido(){
-            // consulta a la bd el ultimo nro de pedido y me suma uno
-           return 1 + 1;
-        }
 
        
-       private String horaActual(){
-     LocalDateTime locaDate = LocalDateTime.now();
+       private void horaActual(){
+    LocalDateTime locaDate = LocalDateTime.now();
     int hours  = locaDate.getHour();    
     int minutes = locaDate.getMinute();
     int seconds = locaDate.getSecond();
-    return (""+hours+" : "+minutes+" : "+seconds+"");
+    LocalDateTime hora = LocalDateTime.of(2023, Month.MARCH, 11, 10, 12);
+           System.out.println("la fecha y dia es: "+ hora);
+    
+   
 //      System.out.println("Hora actual : " + hours  + ":"+ minutes +":"+seconds); 
        }
        
        
+       
+       public LocalDateTime generaFecha_hora(){
+           
+           /*
+           String formatoBD = hora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:MM:ss"));
+            System.out.println("ahora es un string " + formatoBD);
+             
+           ahora es un string 2023-10-12 06:10:11
+           String formatopantalla = hora.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:MM:ss"));
+               System.out.println("nuevo formato"+ formatopantalla); 
+           
+           nuevo formato12-10-2023 06:10:11
+           *
+           */
+           
+           return LocalDateTime.now();
+//            LocalDateTime locaDate = LocalDateTime.now();
+//            int dia = locaDate.getDayOfMonth();
+//            Month mes = locaDate.getMonth();
+//            int año = locaDate.getYear();
+//            int hours  = locaDate.getHour();    
+//            int minutes = locaDate.getMinute();
+//            int seconds = locaDate.getSecond();
+//            LocalDateTime hora = LocalDateTime.of(año, mes, dia, hours, minutes,seconds);
+//            String formatoBD = hora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:MM:ss"));
+//            System.out.println("ahora es un string " + formatoBD);
+//             String formatopantalla = hora.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:MM:ss"));
+//               System.out.println("nuevo formato"+ formatopantalla);
+               
+       }
+       
+       public void cargarfecha(){
+                       
+           locaDate = generaFecha_hora();
+            int dia = locaDate.getDayOfMonth();
+            Month mes = locaDate.getMonth();
+            int año = locaDate.getYear();
+            int hours  = locaDate.getHour();    
+            int minutes = locaDate.getMinute();
+            int seconds = locaDate.getSecond();
+            LocalDateTime hora = LocalDateTime.of(año, mes, dia, hours, minutes,seconds);
+//            String formatoBD = hora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:MM:ss"));
+//            System.out.println("ahora es un string " + formatoBD);
+             String formatopantalla = hora.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+             jlFecha.setText("Fecha : " + formatopantalla);
+       }
+       
+    private int proximoNrodePedido(){
+    int numero=0;
+    try{
+     numero =  pedidoData.proximoNroPedido();
+    }catch(SQLException sqle){
+        JOptionPane.showMessageDialog(this, sqle);
+    }
+        return numero;
 }
+       
+       
+}
+
