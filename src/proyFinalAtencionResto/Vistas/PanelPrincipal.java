@@ -247,7 +247,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private void jmConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultaActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        ConsultaPedido consultaPedido= new ConsultaPedido();
+        ConsultasdePedidos consultaPedido= new ConsultasdePedidos();
         consultaPedido.setVisible(true);
         escritorio.add(consultaPedido);
         escritorio.moveToFront(consultaPedido);

@@ -110,7 +110,7 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return idMesero + " " + nombre + " " + apellido + " " + dni;
+        return "Legajo: " +  idMesero + "";
     }
 
    

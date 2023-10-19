@@ -39,7 +39,7 @@ public class BancoDePRUEBA {
         con=(Connection) Coneccion.getConexion();
         
         
-//        System.out.println("el proximo pedido es: " + proximoNroPedido());
+      System.out.println("el proximo pedido es: " + proximoNroPedido());
 
 
 //        productos_a_listar=listadoDeProductos();
@@ -66,6 +66,8 @@ public class BancoDePRUEBA {
         
     }
     
+    
+    //**********************+++ aca termina el main *************************************
     
     public static int proximoNroPedido() throws SQLException{
        int actual=0;
@@ -258,6 +260,46 @@ BUILD SUCCESSFUL (total time: 9 seconds)
 
         }     
             
+        //metodo eliminar pedido
+        // primero traigo el pedido 
+        
+        public static void eliminarPedido(int numero){
+            
+         
+            
+        }
+        
+        
+        
+//        public static void listarPedidoporsuNumero(int numero){
+//            try{
+//                
+//            }catch(){
+//                
+//            }
+//        }
+        
+        
+        //select * from pedido where pedido.id_pedido=2;
+        
+        
+        // segundo relaciono el id_pedido con la tabla pedidoproducto para borrar los productos pedidos
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // ********************************* de aca para arriba para probar los metodos  ******************
+        
+        
+        
+        
+        
+        
         /*
         
         para modificar un pedido solo se actualiza en la tabla
@@ -370,7 +412,10 @@ Pizza
 
          * 
          */
-            
+        
+        // ******************************     final de la clase   ***********************
+        
+        
  }// end class
       
       

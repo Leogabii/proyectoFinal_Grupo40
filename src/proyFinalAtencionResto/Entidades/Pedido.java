@@ -10,28 +10,27 @@ public class Pedido {
     private int idPedido;
     private int idMesa;
     private int idMesero;
-    private String fechaHora;
+    private LocalDateTime fecha_hora;
     private Double importe;
     
     private boolean cobrado;
 
     public Pedido() {
     }
-    
 
-    public Pedido(int idPedido,  int mesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
+    public Pedido(int idPedido, int idMesa, int idMesero, LocalDateTime fecha_hora, Double importe, boolean cobrado) {
         this.idPedido = idPedido;
-        this.idMesa = mesa;
+        this.idMesa = idMesa;
         this.idMesero = idMesero;
-        this.fechaHora = fechaHora;
+        this.fecha_hora = fecha_hora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
 
-    public Pedido(int mesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
-        this.idMesa = mesa;
+    public Pedido(int idMesa, int idMesero, LocalDateTime fecha_hora, Double importe, boolean cobrado) {
+        this.idMesa = idMesa;
         this.idMesero = idMesero;
-        this.fechaHora = fechaHora;
+        this.fecha_hora = fecha_hora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
@@ -48,8 +47,8 @@ public class Pedido {
         return idMesa;
     }
 
-    public void setIdMesa(int mesa) {
-        this.idMesa = mesa;
+    public void setIdMesa(int idMesa) {
+        this.idMesa = idMesa;
     }
 
     public int getIdMesero() {
@@ -60,12 +59,12 @@ public class Pedido {
         this.idMesero = idMesero;
     }
 
-    public String getFechaHora() {
-        return fechaHora;
+    public LocalDateTime getFecha_hora() {
+        return fecha_hora;
     }
 
-    public void setFechaHora(String fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha_hora(LocalDateTime fecha_hora) {
+        this.fecha_hora = fecha_hora;
     }
 
     public Double getImporte() {
@@ -86,9 +85,17 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", idMesa=" + idMesa + ", idMesero=" + idMesero + ", fechaHora=" + fechaHora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", idMesa=" + idMesa + ", idMesero=" + idMesero + ", fecha_hora=" + fecha_hora + ", importe=" + importe + ", cobrado=" + cobrado + '}';
     }
+
+
+    
+    
+    
     
     
     
 }
+    
+
+
