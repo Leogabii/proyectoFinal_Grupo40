@@ -354,6 +354,9 @@ public class GestionProductos extends javax.swing.JInternalFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
+        
+        
+        
         double precio = 0;
         int stock = -1;
         if (labelId.getText().equalsIgnoreCase("")) {
@@ -444,7 +447,18 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         jtProductos.setModel(modelo);
     }
-
+    private Producto mostrarSeleccionado(int fila){
+         labelId.setText(jtProductos.getValueAt(fila, 0).toString());
+         String nombre = jtProductos.getValueAt(fila, 1).toString();
+         String tipoProducto = jtProductos.getValueAt(fila, 2).toString();
+         Double precio = Double.valueOf(jtProductos.getValueAt(fila, 3).toString());
+         int stock = Integer.parseInt(jtProductos.getValueAt(fila, 4).toString());
+         boolean estado = Boolean.parseBoolean(jtProductos.getValueAt(fila, 5).toString());
+         
+         
+         Producto productoSeleccionado = new Producto(nombre,tipoProducto,precio,stock,estado);
+        return productoSeleccionado;
+    }
     private void borrarFilas() {
         int f = jtProductos.getRowCount() - 1;
         for (; f >= 0; f--) {
@@ -496,14 +510,22 @@ public class GestionProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbTablaActionPerformed
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
-        // TODO add your handling code here:
         int fila = jtProductos.rowAtPoint(evt.getPoint());
-        labelId.setText(jtProductos.getValueAt(fila, 0).toString());
-        jtNombre.setText(jtProductos.getValueAt(fila, 1).toString());
-        jcbtipoProducto.setSelectedItem(jtProductos.getValueAt(fila, 2).toString());
-        jtPrecio.setText(jtProductos.getValueAt(fila, 3).toString());
-        jtStock.setText(jtProductos.getValueAt(fila, 4).toString());
-        jrbEstado.setSelected(Boolean.parseBoolean(jtProductos.getValueAt(fila, 5).toString()));
+        Producto seleccionado = mostrarSeleccionado(fila);
+        jtNombre.setText(seleccionado.getNombreProducto());
+        jcbtipoProducto.setSelectedItem(seleccionado.getTipoProducto());
+        jtPrecio.setText(String.valueOf(seleccionado.getPrecio()));
+        jtStock.setText(String.valueOf(seleccionado.getStock()));
+        jrbEstado.setSelected(seleccionado.isEstado());
+        
+        // TODO add your handling code here:
+//        int fila = jtProductos.rowAtPoint(evt.getPoint());
+//        labelId.setText(jtProductos.getValueAt(fila, 0).toString());
+//        jtNombre.setText(jtProductos.getValueAt(fila, 1).toString());
+//        jcbtipoProducto.setSelectedItem(jtProductos.getValueAt(fila, 2).toString());
+//        jtPrecio.setText(jtProductos.getValueAt(fila, 3).toString());
+//        jtStock.setText(jtProductos.getValueAt(fila, 4).toString());
+//        jrbEstado.setSelected(Boolean.parseBoolean(jtProductos.getValueAt(fila, 5).toString()));
 
     }//GEN-LAST:event_jtProductosMouseClicked
 
