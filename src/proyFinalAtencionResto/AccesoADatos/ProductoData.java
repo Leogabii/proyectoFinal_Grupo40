@@ -46,7 +46,7 @@ public class ProductoData {
     }
       public void eliminarProducto(int id){
         try {
-            String sql = "UPDATE producto SET estado = 0 WHERE id_producto = ? ";
+            String sql = "UPDATE producto SET estado = 0 WHERE idProducto = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
@@ -59,16 +59,17 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla producto");
         }
  }
+      
  
      //Tenemos que hacer una busqueda por nombre para acceder al nombre del producto a modificar
 // ese nombre lo almacenamos en un String      
       // lo pasamos por parametro al metodo modificarProductoPorNombre para usarlo en el where
    /* String nombreViejo;
 */
-        public void modificarProductoPorNombre(Producto producto, String nombreViejo){
+        public void modificarProductoPorNombre(Producto producto, int id){
         // este metodo permitira modificar por nombre del producto y modificamos por el nombre como prueba.
          //nombre_producto, tipo_Producto, precio,stock, estado
-        String sql = "UPDATE producto SET nombre_producto = ? , tipo_producto = ?, precio = ?,stock = ? WHERE nombre_producto =?";
+        String sql = "UPDATE producto SET nombre_producto = ? , tipo_producto = ?, precio = ?,stock = ? WHERE idProducto =?";
         PreparedStatement ps = null;
 
         try {
@@ -77,7 +78,7 @@ public class ProductoData {
             ps.setString(2, producto.getTipoProducto());
             ps.setDouble(3, producto.getPrecio());
             ps.setInt(4, producto.getStock());
-            ps.setString(5,nombreViejo );
+            ps.setInt(5,id );
             
             int exito = ps.executeUpdate();
 
