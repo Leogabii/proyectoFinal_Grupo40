@@ -11,6 +11,7 @@ public class Pedido {
     private int idMesa;
     private int idMesero;
     private LocalDateTime fecha_hora;
+    private String fechaHora;
     private Double importe;
     
     private boolean cobrado;
@@ -31,6 +32,23 @@ public class Pedido {
         this.idMesa = idMesa;
         this.idMesero = idMesero;
         this.fecha_hora = fecha_hora;
+        this.importe = importe;
+        this.cobrado = cobrado;
+    }
+    
+    public Pedido(int idPedido, int idMesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
+        this.idPedido = idPedido;
+        this.idMesa = idMesa;
+        this.idMesero = idMesero;
+        this.fechaHora = fechaHora;
+        this.importe = importe;
+        this.cobrado = cobrado;
+    }
+
+    public Pedido(int idMesa, int idMesero, String fechaHora, Double importe, boolean cobrado) {
+        this.idMesa = idMesa;
+        this.idMesero = idMesero;
+        this.fechaHora = fechaHora;
         this.importe = importe;
         this.cobrado = cobrado;
     }
@@ -67,6 +85,14 @@ public class Pedido {
         this.fecha_hora = fecha_hora;
     }
 
+    public String getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(String fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+    
     public Double getImporte() {
         return importe;
     }

@@ -4,7 +4,6 @@
  */
 package proyFinalAtencionResto.Vistas;
 
-
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -24,6 +23,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         }
     };
     ProductoData pd = new ProductoData();
+    Producto seleccionado = new Producto();
 
     /**
      * Creates new form GestionProductos
@@ -34,11 +34,6 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         jcbTabla.setSelectedItem("TODO");
         cargarTablaTodo();
         this.setSize(1500, 700);
-        
-                     
-   
-
-        
 
     }
 
@@ -175,7 +170,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         });
 
         jbLimpiar.setBackground(new java.awt.Color(0, 0, 0));
-        jbLimpiar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jbLimpiar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jbLimpiar.setIcon(new javax.swing.ImageIcon("C:\\Users\\li_ig\\Documents\\GitHub\\proyectoFinal_Grupo40\\src\\media\\imgs\\limpiar.png")); // NOI18N
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +179,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(0, 0, 0));
-        jbGuardar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jbGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\li_ig\\Documents\\GitHub\\proyectoFinal_Grupo40\\src\\media\\imgs\\guardar.png")); // NOI18N
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,8 +302,6 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
-        labelId.setText("jLabel7");
-
         jtTipoDeProducto.setBackground(new java.awt.Color(255, 255, 255));
         jtTipoDeProducto.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jtTipoDeProducto.setForeground(new java.awt.Color(0, 0, 0));
@@ -349,19 +342,19 @@ public class GestionProductos extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         // TODO add your handling code here:
         limpiar();
-
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
         double precio = 0;
         int stock = -1;
         if (labelId.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Selecione el objeto de la tabla que desea modificar");
-        } else if (jtNombre.getText().length() > 0 ) {
+        }else if(validarModificacion()== false) {
+            JOptionPane.showMessageDialog(this, "No ha modificado ningun campo ");
+
+        } else if (jtNombre.getText().length() > 0) {
             try {
                 int id = Integer.parseInt(labelId.getText());
                 Producto modificado = new Producto(jtNombre.getText(), jcbtipoProducto.getSelectedItem().toString(), Double.parseDouble(jtPrecio.getText()), Integer.parseInt(jtStock.getText()), jrbEstado.isSelected());
@@ -386,13 +379,16 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Error no puede haber campos vacios");
         }
-        
+
 
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
         //        boolean estado =jrbEstado.isEnabled();
+        if (!labelId.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "El dato que quiere guardar ya se encuentra en la base de datos por favor limpie los campos");
+        }else{
         double precio = 0;
         int stock = -1;
         if (jtNombre.getText().length() > 0) {
@@ -426,15 +422,19 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error no puede haber campos vacios");
         }
         refrescarTabla();
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(labelId.getText());
-        pd.eliminarProducto(id);
-        limpiar();
-        refrescarTabla();
-        
+        if (labelId.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Selecione el objeto de la tabla que desea eliminar");
+        } else {
+            int id = Integer.parseInt(labelId.getText());
+            pd.eliminarProducto(id);
+            limpiar();
+            refrescarTabla();
+        }
 
 
     }//GEN-LAST:event_jbEliminarActionPerformed
@@ -447,18 +447,28 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         jtProductos.setModel(modelo);
     }
-    private Producto mostrarSeleccionado(int fila){
-         labelId.setText(jtProductos.getValueAt(fila, 0).toString());
-         String nombre = jtProductos.getValueAt(fila, 1).toString();
-         String tipoProducto = jtProductos.getValueAt(fila, 2).toString();
-         Double precio = Double.valueOf(jtProductos.getValueAt(fila, 3).toString());
-         int stock = Integer.parseInt(jtProductos.getValueAt(fila, 4).toString());
-         boolean estado = Boolean.parseBoolean(jtProductos.getValueAt(fila, 5).toString());
-         
-         
-         Producto productoSeleccionado = new Producto(nombre,tipoProducto,precio,stock,estado);
+
+    private boolean validarModificacion() {
+        boolean modificacion;
+        if (!jtNombre.getText().equalsIgnoreCase(seleccionado.getNombreProducto()) || (!jcbtipoProducto.getSelectedItem().equals(seleccionado.getTipoProducto())) || (!jtPrecio.getText().equals(String.valueOf(seleccionado.getPrecio()))) || (!jtStock.getText().equalsIgnoreCase(String.valueOf(seleccionado.getStock()))) || (!jrbEstado.isSelected() == seleccionado.isEstado())) {
+            modificacion = true;
+        } else {
+            modificacion = false;
+        }
+        return modificacion;
+    }
+
+    private Producto mostrarSeleccionado(int fila) {
+        labelId.setText(jtProductos.getValueAt(fila, 0).toString());
+        String nombre = jtProductos.getValueAt(fila, 1).toString();
+        String tipoProducto = jtProductos.getValueAt(fila, 2).toString();
+        Double precio = Double.valueOf(jtProductos.getValueAt(fila, 3).toString());
+        int stock = Integer.parseInt(jtProductos.getValueAt(fila, 4).toString());
+        boolean estado = Boolean.parseBoolean(jtProductos.getValueAt(fila, 5).toString());
+        Producto productoSeleccionado = new Producto(nombre, tipoProducto, precio, stock, estado);
         return productoSeleccionado;
     }
+
     private void borrarFilas() {
         int f = jtProductos.getRowCount() - 1;
         for (; f >= 0; f--) {
@@ -485,8 +495,9 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, sqle);
         }
     }
-    private void refrescarTabla(){
-         try {
+
+    private void refrescarTabla() {
+        try {
             for (Producto prod : pd.listadoDeProductos()) {
 
                 if (prod.getTipoProducto().equalsIgnoreCase((String) jcbTabla.getSelectedItem())) {
@@ -500,24 +511,23 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, sqle);
         }
     }
-    
-  
+
 
     private void jcbTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTablaActionPerformed
         // TODO add your handling code here:
         borrarFilas();
-       refrescarTabla();
+        refrescarTabla();
     }//GEN-LAST:event_jcbTablaActionPerformed
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
         int fila = jtProductos.rowAtPoint(evt.getPoint());
-        Producto seleccionado = mostrarSeleccionado(fila);
+        seleccionado = mostrarSeleccionado(fila);
         jtNombre.setText(seleccionado.getNombreProducto());
         jcbtipoProducto.setSelectedItem(seleccionado.getTipoProducto());
         jtPrecio.setText(String.valueOf(seleccionado.getPrecio()));
         jtStock.setText(String.valueOf(seleccionado.getStock()));
         jrbEstado.setSelected(seleccionado.isEstado());
-        
+
         // TODO add your handling code here:
 //        int fila = jtProductos.rowAtPoint(evt.getPoint());
 //        labelId.setText(jtProductos.getValueAt(fila, 0).toString());
@@ -573,4 +583,4 @@ private void btnEliminarPlatoActionPerformed(java.awt.event.ActionEvent evt) {
             JOptionPane.showMessageDialog(null, "Selecciona una fila");
         }
     }  
-*/
+ */

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import proyFinalAtencionResto.Entidades.Mesa;
 import sun.security.rsa.RSACore;
 
 
@@ -96,150 +97,6 @@ public class PedidoData {
 
         }     
     
-    public List<Pedido> listarPedidosPorIdMesero(int idMesero) {
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "select id_pedido, id_mesa, id_mesero, fecha_hora, importe, cobrada from pedido where id_mesero = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMesero);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Pedido pedido = new Pedido();
-                pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setIdMesa(rs.getInt("id_mesa"));
-                pedido.setIdMesero(rs.getInt("id_mesero"));
-                //pedido.setFecha_hora(rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                pedido.setImporte(rs.getDouble("importe"));
-                pedido.setCobrado(rs.getBoolean("cobrada"));
-                pedidos.add(pedido);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "El/la mesero/a no fue encontrado/a.");
-        }
-        return pedidos;
-    }
-    
-    public List<Double> listarIngresosPorFecha(LocalDate fecha) {
-        ArrayList<Double> ingresos = new ArrayList<>();
-        String sql = "select importe from Pedido where fecha_hora = ?%";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setDate(1, Date.valueOf(fecha));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                double ingreso;
-                ingreso = rs.getDouble("ingreso");
-                ingresos.add(ingreso);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
-        }
-        return ingresos;
-    }
-    
-    public List<Double> listarIngresosDelDiaCobrados() {
-        ArrayList<Double> ingresos = new ArrayList<>();
-        String sql = "select importe from Pedido where fecha_hora between ? and ? and cobrada = 1";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            DateFormat dateFormat1 = new SimpleDateFormat("yyyy MMM d");
-            String date1 = dateFormat1.format(Calendar.getInstance().getTime());
-            ps.setString(1, date1+" 10:00:00");
-            DateFormat dateFormat2 = new SimpleDateFormat("yyyy MMM d HH:mm:ss");
-            String date2 = dateFormat2.format(Calendar.getInstance().getTime());
-            ps.setString(2, date2);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                double ingreso;
-                ingreso = rs.getDouble("ingreso");
-                ingresos.add(ingreso);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
-        }
-        return ingresos;
-    }
-    
-    public List<Double> listarIngresosDelDiaPendientes() {
-        ArrayList<Double> ingresos = new ArrayList<>();
-        String sql = "select importe from Pedido where fecha_hora between ? and ? and cobrada = 0";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            DateFormat dateFormat1 = new SimpleDateFormat("yyyy MMM d");
-            String date1 = dateFormat1.format(Calendar.getInstance().getTime());
-            ps.setString(1, date1+" 10:00:00");
-            DateFormat dateFormat2 = new SimpleDateFormat("yyyy MMM d HH:mm:ss");
-            String date2 = dateFormat2.format(Calendar.getInstance().getTime());
-            ps.setString(2, date2);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                double ingreso;
-                ingreso = rs.getDouble("ingreso");
-                ingresos.add(ingreso);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
-        }
-        return ingresos;
-    } 
-    
-    public List<Pedido> listarPedidosDeMeseroPorFecha(int idMesero, LocalDate fecha) {
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "select id_pedido, id_mesa, id_mesero, fecha_hora, importe, cobrada from pedido where id_mesero = ? and fecha_hora between ? and ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMesero);
-            ps.setDate(2, Date.valueOf(fecha+" 10:00:00"));
-            ps.setDate(3, Date.valueOf(fecha.plusDays(1)+" 01:00:00"));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Pedido pedido = new Pedido();
-                pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setIdMesa(rs.getInt("id_mesa"));
-                pedido.setIdMesero(rs.getInt("id_mesero"));
-                //pedido.setFecha_hora(rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                pedido.setImporte(rs.getDouble("importe"));
-                pedido.setCobrado(rs.getBoolean("cobrada"));
-                pedidos.add(pedido);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "El/la mesero/a que busca no fue encontrado/a.");
-        }
-        return pedidos;
-    }
-    
-    public List<Pedido> listarPedidosDeMesaPorFecha(int idMesa, LocalDate fecha, int hora1, int hora2) {
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "select * from pedido where id_mesa = ? and fecha_hora between ? and ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMesa);
-            ps.setDate(2, Date.valueOf(fecha+" "+hora1+":00:00"));
-            ps.setDate(2, Date.valueOf(fecha+" "+hora2+":00:00"));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Pedido pedido = new Pedido();
-                pedido.setIdPedido(rs.getInt("id_pedido"));
-                pedido.setIdMesa(idMesa);
-                pedido.setIdMesero(rs.getInt("id_mesero"));
-                //pedido.setFecha_hora(rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                pedido.setImporte(rs.getDouble("importe"));
-                pedido.setCobrado(rs.getBoolean("cobrada"));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "La mesa que busca no fue encontrada.");
-        }
-        return pedidos;
-    }
     
           public int proximoNroPedido() throws SQLException{  // mio
        int actual=0;
@@ -460,7 +317,215 @@ cobrada
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "NO fue actualizado."+ex);
         }
-      } 
+      }
+        
+        public List<Pedido> listarPedidosPorIdMesero(int idMesero) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from pedido where id_mesero = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesero);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));      
+                pedido.setFechaHora(rs.getString(("fecha_hora")));
+
+//                int mes = rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getMonthValue();
+//                int dia = rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getDayOfMonth();
+//                int hora = rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getHour();
+//                int minutos = rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getMinute();
+//                int segundos = rs.getDate("fecha_hora").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getSecond();
+                
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El/la mesero/a no fue encontrado/a.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarPedidosPorIdMeseroIdMesa(int idMesero, int idMesa) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from pedido where id_mesero = ? and id_mesa = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesero);
+            ps.setInt(2, idMesa);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos asociados al mesero y la mesa indicados.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarIngresosPorFecha(String fecha1, String fecha2) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from Pedido where fecha_hora between ? and ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1+" 00:00:00");
+            ps.setString(2, fecha2+" 23:59:59");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarIngresosPorFechaCobrados(String fecha1, String fecha2) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from Pedido where fecha_hora between ? and ? and cobrada = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1+" 00:00:00");
+            ps.setString(2, fecha2+" 23:59:59");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarIngresosPorFechaPendientes(String fecha1, String fecha2) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from Pedido where fecha_hora between ? and ? and cobrada = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1+" 00:00:00");
+            ps.setString(2, fecha2+" 23:59:59");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos en la fecha indicada.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarPedidosDeMeseroPorFecha(int idMesero, String fecha1, String fecha2) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from pedido where id_mesero = ? and fecha_hora between ? and ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesero);
+            ps.setString(2, fecha1+" 00:00:00");
+            ps.setString(3, fecha2+" 23:59:59");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(rs.getInt("id_mesa"));
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El/la mesero/a que busca no fue encontrado/a.");
+        }
+        return pedidos;
+    }
+    
+    public List<Pedido> listarPedidosDeMesaPorFecha(int idMesa, String fecha1, String fecha2) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "select * from pedido where id_mesa = ? and fecha_hora between ? and ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesa);
+            ps.setString(2, fecha1+" 00:00:00");
+            ps.setString(3, fecha2+" 23:59:59");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setIdMesa(idMesa);
+                pedido.setIdMesero(rs.getInt("id_mesero"));
+                pedido.setFechaHora(rs.getString("fecha_hora"));
+                pedido.setImporte(rs.getDouble("importe"));
+                pedido.setCobrado(rs.getBoolean("cobrada"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "La mesa que busca no fue encontrada.");
+        }
+        return pedidos;
+    }
+    
+        public List<Mesa> listarMesasPorIdMesero(int idMesero) {
+        ArrayList<Mesa> mesas = new ArrayList<>();
+        String sql = "select id_mesa from pedido where id_mesero = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesero);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Integer> agregadas = new ArrayList<>();
+            while (rs.next()) {
+                Mesa mesa = new Mesa();
+                if (agregadas.contains(rs.getInt("id_mesa"))) {
+                } else {
+                mesa.setIdMesa(rs.getInt("id_mesa"));
+                mesas.add(mesa);
+                agregadas.add(rs.getInt("id_mesa"));
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El/la mesero/a no fue encontrado/a.");
+        }
+        return mesas;
+    }
             
         
     

@@ -26,9 +26,8 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
      */
     public ListaPedidosMesero() {
         initComponents();
-//        cargarCombo();
         armarCabecera();
-        cargarDatos();
+        cargarCombo();
     }
 
     /**
@@ -179,6 +178,7 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
             modelo.removeRow(i);
             i-=1;
         }
+        jbCargar.setEnabled(true);
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
@@ -188,8 +188,9 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
         Mesero mesero = (Mesero)jcbMesero.getSelectedItem();
         pedidos = pd.listarPedidosPorIdMesero(mesero.getIdMesero());
         for (Pedido pedido: pedidos) {
-            modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFechaHora(), pedido.getImporte(), pedido.isCobrado()});
+            modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getIdMesa(), pedido.getFecha_hora(), pedido.getImporte(), pedido.isCobrado()});
         }
+        jbCargar.setEnabled(false);
     }//GEN-LAST:event_jbCargarActionPerformed
 
 
@@ -226,13 +227,19 @@ public class ListaPedidosMesero extends javax.swing.JInternalFrame {
         jtMesero.setModel(modelo);
     }
     
-    private void cargarDatos() {
+    private void cargarCombo() {
         MeseroData ms = new MeseroData();
         List<Mesero> meseros = new ArrayList<>();
         meseros = ms.listaDeMeseros();
         for (Mesero mesero: meseros) {
             jcbMesero.addItem(mesero);
         }
+//for (Mesero mesero: meseros) {
+//            String idMesero = String.valueOf(mesero.getIdMesero());
+//            String apellidoMesero = String.valueOf(mesero.getApellido());
+//            String nombreMesero = String.valueOf(mesero.getNombre());
+//            jcbMesero.addItem(idMesero+" "+apellidoMesero+" "+nombreMesero);
+//        }
     }
 
 }

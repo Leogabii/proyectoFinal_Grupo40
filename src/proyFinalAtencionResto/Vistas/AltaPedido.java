@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyFinalAtencionResto.AccesoADatos.MesaData;
@@ -116,6 +118,7 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         jbGrabar = new javax.swing.JButton();
         jbAnular = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 102, 0));
         setClosable(true);
@@ -189,10 +192,11 @@ public class AltaPedido extends javax.swing.JInternalFrame {
             jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelDeArribaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNroPedidoPmo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlNroPedidoPmo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelDeArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,6 +282,13 @@ public class AltaPedido extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpanelDeAbajjoLayout = new javax.swing.GroupLayout(jpanelDeAbajjo);
         jpanelDeAbajjo.setLayout(jpanelDeAbajjoLayout);
         jpanelDeAbajjoLayout.setHorizontalGroup(
@@ -303,13 +314,17 @@ public class AltaPedido extends javax.swing.JInternalFrame {
                         .addGap(47, 47, 47))
                     .addGroup(jpanelDeAbajjoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(jpanelDeAbajjoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jpanelDeAbajjoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpanelDeAbajjoLayout.createSequentialGroup()
                                 .addComponent(jbAnularItem, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(98, 98, 98)
-                                .addComponent(jbAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jlAtendido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                                .addComponent(jbAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE))
+                            .addGroup(jpanelDeAbajjoLayout.createSequentialGroup()
+                                .addComponent(jlAtendido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(80, 80, 80)
+                                .addComponent(jButton1)
+                                .addGap(58, 58, 58)))
                         .addGroup(jpanelDeAbajjoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelDeAbajjoLayout.createSequentialGroup()
                                 .addComponent(jbGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,8 +363,10 @@ public class AltaPedido extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpanelDeAbajjoLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jlAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addGroup(jpanelDeAbajjoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlAtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -395,7 +412,10 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         if (!estadoDeLaMesa(nroMesa)){
             //este metodo me pasa el estado de la mesa a ocupada (true)
             modificoEstadoActual(nroMesa,true);
+            PanelPrincipal.seguimientoMeseros.put(nroMesa,nroMozo);
             habilitaBotones();
+            System.out.println("numero de mesa elegido" + nroMesa);
+            System.out.println("numero de mesero elegido" + nroMozo);
         }else if(consultaMozodeLaMeza(nroMesa,nroMozo)){
             habilitaBotones();
 
@@ -582,8 +602,15 @@ public class AltaPedido extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMesaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+            pedidoData.listarPedidosPorIdMeseroIdMesa(7, 8).forEach(System.out::println);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -753,6 +780,7 @@ private void  modificoEstadoActual(int nroMesa,boolean estado){
     
 }
 
+
 private boolean consultaMozodeLaMeza(int nroMesa, int nroMozo) throws SQLException{
     // aca controla que el mesero este atendiendo a esa mesa al dar de alta el pedido por primera vez
 //    List<Integer> nroMeseros = new ArrayList();
@@ -764,7 +792,7 @@ private boolean consultaMozodeLaMeza(int nroMesa, int nroMozo) throws SQLExcepti
            //2023-10-10 18:20:19
 
            
-           return pedidoData.meseroQAtiendeUnaMesaDada(nroMesa, nroMozo);
+//           return pedidoData.meseroQAtiendeUnaMesaDada(nroMesa, nroMozo);
            
            
            
@@ -776,7 +804,22 @@ private boolean consultaMozodeLaMeza(int nroMesa, int nroMozo) throws SQLExcepti
 //           }
 //    }
 //    return false;  
+        
+    for (Map.Entry<Integer, Integer> entry : PanelPrincipal.seguimientoMeseros.entrySet()) {
+       
+
+        if ((entry.getKey() == nroMesa) & (entry.getValue() == nroMozo) )  {
+        
+          
+            return true;
+        }
+        
+    }
+        return false;
+    
 }
+
+
 
 
 private void cargarComboBoxProducto(){
@@ -880,7 +923,14 @@ private void cargarComboBoxProducto(){
        }
        
        public void cargarfecha(){
-                       
+        
+           // lo nuevo del hilos
+           Thread clock = new Thread(()->{
+               
+           while(true){
+               
+           
+           
            locaDate = generaFecha_hora();
             int dia = locaDate.getDayOfMonth();
             Month mes = locaDate.getMonth();
@@ -892,8 +942,19 @@ private void cargarComboBoxProducto(){
 //            String formatoBD = hora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:MM:ss"));
 //            System.out.println("ahora es un string " + formatoBD);
              String formatopantalla = hora.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+              
              jlFecha.setText("Fecha : " + formatopantalla);
+               try{
+                   Thread.sleep(1000);
+               }catch(InterruptedException ex){
+                   System.out.println(ex);
+               }
        }
+           });
+           clock.start();
+       }
+       
+       
        
     private int proximoNrodePedido(){
     int numero=0;

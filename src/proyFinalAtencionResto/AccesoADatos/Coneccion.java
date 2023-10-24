@@ -25,7 +25,7 @@ public class Coneccion {
     private static final String USUARIO="root";
     private static Connection connection;
 
-    private Coneccion() {
+    Coneccion() {
     }
     
     public static Connection getConexion(){
